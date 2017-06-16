@@ -47,7 +47,6 @@
 
                 </div>
 
-
                 <div class="setting">
                     <ul>
                         <li>
@@ -64,7 +63,7 @@
             <!--rightcontent start-->
             <div class="right">
                 <div class="content">
-                    <div class="msgleft">
+                    <!--<div class="msgleft">
                         <div class="fl">
                             <img src="imgs/face.jpg" alt="">
                         </div>
@@ -74,22 +73,20 @@
                     </div>
                     <div class="msgtime">
                         <i>2015-6-15 16:27</i>
-                    </div>
+                    </div>-->
                 </div>
-
-
 
                 <!--chatwindows start-->
                 <div class="chatwindows">
                     <div class="chattool">
                         <ul>
                             <li> <img src="imgs/Smile.png" alt="setting"></li>
-
+                            <li> <img src="imgs/skip.png" alt="setting" id='clearMsg'></li>
                         </ul>
                     </div>
 
                     <div class="chattext">
-                        <textarea name="" id="msgarea" cols="30" rows="8" class="msgarea" placeholder="在此处输入消息"></textarea>
+                        <textarea name="" id="msgarea" cols="30" rows="8" class="msgarea" placeholder="在此处输入消息(Ctrl+Enter发送)"></textarea>
                     </div>
 
                     <!--  <div class="footbar">
@@ -135,43 +132,53 @@
 
         $('.grouplist li').on('click', function (e) {
             //将当前信息保存起来
-            var storge = window.localStorage;
-
-            //获取当前选中人的chat记录，显示到当前窗口
-            var curaccountid = this.dataset.account;
-            var curacc_lastMsginfo = storge.getItem(curaccountid);
-
-
-            //获取上一个人的chat记录 写入localstorage
-            var lastaccountid = $('#lastchatAccountid').val();
+            var storge = window.localStorage,
+                //获取当前选中人的chat记录，显示到当前窗口
+                curaccountid = this.dataset.account,
+                curacc_lastMsginfo = storge.getItem(curaccountid),
+                $content = $('.content'),
+                lastaccountid = $('#lastchatAccountid').val();
 
             if (curaccountid != lastaccountid) {
-
-                if (lastaccountid != null && lastaccountid != undefined && lastaccountid != "") {
-                    //累加新的信息到后面
-                    var lastacc_lastMsginfo = storge.getItem(lastaccountid);
-                    var curmsgcontent = $('.content').html();
-                    storge.setItem(lastaccountid, lastacc_lastMsginfo);
-                }
-
-                $('.content').empty().append(curacc_lastMsginfo);
+                $content.empty().append(curacc_lastMsginfo);
                 $('#lastchatAccountid').val(curaccountid);//将当前选中account 存起来
-            }
+                $content.scrollTop($content[0].scrollHeight);
+                $('#msgarea').val('');
 
+                 $(this).addClass("libgcolor").siblings().removeClass("libgcolor");
+            }
         });
         // 监听键盘组合键
         $(document).keydown(function (oEvent) {
             if (oEvent.keyCode == 13 && oEvent.ctrlKey) {
-                var msg = $("#msgarea").val();
+                var msg = $("#msgarea").val(), $content = $('.content'),
+                    time = new Date().Format("yyyy-MM-dd hh:mm"),
+                    msghtml = "";
                 //todo 发送到后台处理
 
-                var time = new Date().Format("yyyy-MM-dd hh:mm");
-                var msghtml = '<div class="msgright"><div class="content_text fl"><p>' + msg + '</p></div><div class="fr"><img src="imgs/face.jpg" alt="555"></div></div>';
+
+
+                msghtml += '<div class="msgright"><div class="content_text fl"><p>' + msg + '</p></div><div class="fr"><img src="imgs/face.jpg" alt="555"></div></div>';
                 msghtml += '<div class="msgtime"><i>' + time + '</i></div>';
-                $('.content').append(msghtml);
+                $content.append(msghtml);
+                $content.scrollTop($content[0].scrollHeight);
+
+                //写入本地localstorage
+                var storge = window.localStorage,
+                    curaccountid = $('#lastchatAccountid').val(),
+                    lastmsginfo = storge.getItem(curaccountid);
+                storge.setItem(curaccountid, (lastmsginfo == null ? "" : lastmsginfo) + msghtml);
+
             }
         });
 
+
+        $('#clearMsg').on('click', function () {
+            var storage = window.localStorage,
+                lastaccountid = $('#lastchatAccountid').val();
+            storage.removeItem(lastaccountid);
+            $('.content').empty();
+        })
     });
 
 </script>
