@@ -164,11 +164,24 @@
 
                     var gplist = [];
 
-                    return shoppingList.filter(function (item) {
+                    // return orglist.filter(function (item) {
 
-                        return item.filter(function (item2) {
+                    //     return item.filter(function (item2) {
 
-                            if (item2.AccountName.toLowerCase().indexOf(key.toLowerCase()) !=
+                    //         if (item2.AccountName.toLowerCase().indexOf(key.toLowerCase()) !=
+                    //             -1) {
+                    //             var gp = {};
+                    //             gp.Gname = item.Gname;
+                    //             gp.Open = true;
+                    //             gp.AccountList.push(itme2);
+                    //             gplist.push(gp);
+                    //         }
+                    //     });
+                    // });
+
+                    for (var index = 0; index < orglist.length; index++) {
+                        for (var j = 0; j < orglist[index].AccountList.length; j++) {
+                            if (orglist[index].AccountList[j].AccountName.toLowerCase().indexOf(key.toLowerCase()) !=
                                 -1) {
                                 var gp = {};
                                 gp.Gname = item.Gname;
@@ -176,14 +189,10 @@
                                 gp.AccountList.push(itme2);
                                 gplist.push(gp);
                             }
-                        });
-                    });
 
-                    for (var index = 0; index < array.length; index++) {
-                        var element = array[index];
-                        
+                        }
                     }
-
+                    return gplist;
 
                 }
                 return this.UserInfo.Grouplist;
