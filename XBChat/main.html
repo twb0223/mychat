@@ -30,7 +30,7 @@
 
 
                 <div class="tabpanle">
-                    <div class="linkgroup" v-for="item in UserInfo.Grouplist">
+                    <div class="linkgroup" v-for="item in filterList">
                         <span class="groupName" @click.self='item.Open=!item.Open'>{{item.Gname}}</span>
 
                         <ul class='grouplist' v-for="item2 in item.AccountList" v-show="item.Open">
@@ -135,7 +135,7 @@
                         ]
                     },
                     {
-                        'Gname': 'GName1',
+                        'Gname': 'GName2',
                         'Open': true,
                         'AccountList': [{
                                 'AccountID': '10003',
@@ -161,35 +161,27 @@
                 var key = this.key;
                 var orglist = this.UserInfo.Grouplist;
                 if (key) {
-
                     var gplist = [];
-
-                    return shoppingList.filter(function (item) {
-
-                        return item.filter(function (item2) {
-
-                            if (item2.AccountName.toLowerCase().indexOf(key.toLowerCase()) !=
+                    for (var i = 0; i < orglist.length; i++) {
+                        var gp = {};
+                        gp.Open = true;
+                        gp.Gname = orglist[i].Gname;
+                        gp.AccountList = [];
+                        for (var j = 0; j < orglist[i].AccountList.length; j++) {
+                            if (orglist[i].AccountList[j].AccountName.toLowerCase().indexOf(key.toLowerCase()) !=
                                 -1) {
-                                var gp = {};
-                                gp.Gname = item.Gname;
-                                gp.Open = true;
-                                gp.AccountList.push(itme2);
-                                gplist.push(gp);
+                                gp.AccountList.push(orglist[i].AccountList[j]);
                             }
-                        });
-                    });
-
-                    for (var index = 0; index < array.length; index++) {
-                        var element = array[index];
-                        
+                        }
+                        if (gp.AccountList.length > 0) {
+                            gplist.push(gp);
+                        }
                     }
-
-
+                    return gplist;
                 }
                 return this.UserInfo.Grouplist;
             }
         },
-
         methods: {
             selectfriend: function (e) {
                 var storge = window.localStorage,
