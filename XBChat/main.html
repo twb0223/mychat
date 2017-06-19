@@ -25,13 +25,14 @@
 
                 <div class="search">
                     <img src="imgs/search.png" alt="">
-                    <input type="text" placeholder="搜索" />
+                    <input type="text" placeholder="搜索" v-model="key" />
                 </div>
 
 
                 <div class="tabpanle">
                     <div class="linkgroup" v-for="item in UserInfo.Grouplist">
                         <span class="groupName" @click.self='item.Open=!item.Open'>{{item.Gname}}</span>
+
                         <ul class='grouplist' v-for="item2 in item.AccountList" v-show="item.Open">
 
                             <li v-bind:data-account="item2.AccountID" @click='selectfriend'>
@@ -60,17 +61,7 @@
             <!--rightcontent start-->
             <div class="right">
                 <div class="content">
-                    <!--<div class="msgleft">
-                        <div class="fl">
-                            <img src="imgs/face.jpg" alt="">
-                        </div>
-                        <div class="content_text fr">
-                            <p>qdqwdqwdqwdqwd</p>
-                        </div>
-                    </div>
-                    <div class="msgtime">
-                        <i>2015-6-15 16:27</i>
-                    </div>-->
+
                 </div>
 
                 <!--chatwindows start-->
@@ -99,8 +90,8 @@
 
     <input type="hidden" id="lastchatAccountid" value="11" />
 </body>
-<script src="https://unpkg.com/vue/dist/vue.min.js"></script>
-
+<script src="js/vue.min.js"></script>
+<script src="js/axios.min.js"></script>
 <script>
     Date.prototype.Format = function (fmt) { //author: meizz 
         var o = {
@@ -119,53 +110,86 @@
         return fmt;
     }
 
-    var initdata = {
-        'AccountID': 10000,
-        'AccountName': 'KAka',
-        'Logo': 'imgs/face.jpg',
-        'Grouplist': [{
-                'Gname': 'GName1',
-                'Open': true,
-                'AccountList': [{
-                        'AccountID': '10001',
-                        'AccountName': 'AName1',
-                        'AccountLogo': 'imgs/face.jpg'
-                    },
-                    {
-                        'AccountID': '10002',
-                        'AccountName': 'AName2',
-                        'AccountLogo': 'imgs/Smile.png'
-                    }
-                ]
-            },
-            {
-                'Gname': 'GName1',
-                'Open': true,
-                'AccountList': [{
-                        'AccountID': '10003',
-                        'AccountName': 'AName1',
-                        'AccountLogo': 'imgs/face.jpg'
-                    },
-                    {
-                        'AccountID': '10004',
-                        'AccountName': 'AName2',
-                        'AccountLogo': 'imgs/Smile.png'
-                    }
-                ]
-            }
-        ]
-    }
-
     new Vue({
         el: "#app",
         data: {
             lastaccountid: document.getElementById('lastchatAccountid'),
             msgcontent: document.getElementsByClassName('content'),
-            UserInfo: initdata
+            UserInfo: {
+                'AccountID': 10000,
+                'AccountName': 'KAka',
+                'Logo': 'imgs/face.jpg',
+                'Grouplist': [{
+                        'Gname': 'GName1',
+                        'Open': true,
+                        'AccountList': [{
+                                'AccountID': '10001',
+                                'AccountName': 'AName1',
+                                'AccountLogo': 'imgs/face.jpg'
+                            },
+                            {
+                                'AccountID': '10002',
+                                'AccountName': 'AName2',
+                                'AccountLogo': 'imgs/Smile.png'
+                            }
+                        ]
+                    },
+                    {
+                        'Gname': 'GName1',
+                        'Open': true,
+                        'AccountList': [{
+                                'AccountID': '10003',
+                                'AccountName': 'AName4',
+                                'AccountLogo': 'imgs/face.jpg'
+                            },
+                            {
+                                'AccountID': '10004',
+                                'AccountName': 'ANam5',
+                                'AccountLogo': 'imgs/Smile.png'
+                            }
+                        ]
+                    }
+                ]
+            },
+            key: ''
         },
-        mounted:function(){
-            console.log('init...');
+        mounted: function () {
+            this.msgcontent.innerHTML = "<div class='welcome'>Have fun!</div>";
         },
+        computed: {
+            filterList: function () {
+                var key = this.key;
+                var orglist = this.UserInfo.Grouplist;
+                if (key) {
+
+                    var gplist = [];
+
+                    return shoppingList.filter(function (item) {
+
+                        return item.filter(function (item2) {
+
+                            if (item2.AccountName.toLowerCase().indexOf(key.toLowerCase()) !=
+                                -1) {
+                                var gp = {};
+                                gp.Gname = item.Gname;
+                                gp.Open = true;
+                                gp.AccountList.push(itme2);
+                                gplist.push(gp);
+                            }
+                        });
+                    });
+
+                    for (var index = 0; index < array.length; index++) {
+                        var element = array[index];
+                        
+                    }
+
+
+                }
+                return this.UserInfo.Grouplist;
+            }
+        },
+
         methods: {
             selectfriend: function (e) {
                 var storge = window.localStorage,

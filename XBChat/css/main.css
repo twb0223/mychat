@@ -171,6 +171,16 @@
     overflow-y: auto;
     font-size: 14px;
     color: #fafcfd;
+ 
+}
+
+.welcome {
+    color: black;
+    text-align: center;
+margin-top: 250px;
+    line-height: 35px;
+    height: 35px;
+    
 }
 
 
