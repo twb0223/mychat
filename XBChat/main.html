@@ -11,15 +11,15 @@
 </head>
 
 <body>
-    <div class="all">
+    <div class="all" id="app">
         <div class="main">
             <!--leftmenu start-->
             <div class="leftmenu">
                 <div class="userinfo">
                     <div class="userinfo_img">
-                        <img src="imgs/face.jpg" alt=""></div>
+                        <img v-bind:src="UserInfo.Logo" alt=""></div>
                     <div class="userinfo_name">
-                        <span>Name</span>
+                        <span>{{UserInfo.AccountName}}</span>
                     </div>
                 </div>
 
@@ -30,17 +30,15 @@
 
 
                 <div class="tabpanle">
-                    <div class="linkgroup">
-                        <span class="groupName">工作(1/10)</span>
-                        <ul class='grouplist'>
-                            <li data-account='100001'>
-                                <img src="imgs/Smile.png" alt="name">
-                                <span>100001</span>
+                    <div class="linkgroup" v-for="item in UserInfo.Grouplist">
+                        <span class="groupName" @click.self='item.Open=!item.Open'>{{item.Gname}}</span>
+                        <ul class='grouplist' v-for="item2 in item.AccountList" v-show="item.Open">
+
+                            <li v-bind:data-account="item2.AccountID" @click='selectfriend'>
+                                <img v-bind:src="item2.AccountLogo" alt="name">
+                                <span>{{item2.AccountName}}</span>
                             </li>
-                            <li data-account='100002'>
-                                <img src="imgs/search.png" alt="name">
-                                <span>100002</span>
-                            </li>
+
                         </ul>
                     </div>
 
@@ -80,12 +78,12 @@
                     <div class="chattool">
                         <ul>
                             <li> <img src="imgs/Smile.png" alt="setting"></li>
-                            <li> <img src="imgs/skip.png" alt="setting" id='clearMsg'></li>
+                            <li> <img src="imgs/skip.png" alt="setting" @click='clearcache'></li>
                         </ul>
                     </div>
 
                     <div class="chattext">
-                        <textarea name="" id="msgarea" cols="30" rows="8" class="msgarea" placeholder="在此处输入消息(Ctrl+Enter发送)"></textarea>
+                        <textarea name="" id="msgarea" cols="30" rows="8" class="msgarea" placeholder="在此处输入消息(Ctrl+Enter发送)" @keydown='send'></textarea>
                     </div>
 
                     <!--  <div class="footbar">
@@ -99,9 +97,10 @@
         </div>
     </div>
 
-    <input type="hidden" id="lastchatAccountid" />
+    <input type="hidden" id="lastchatAccountid" value="11" />
 </body>
-<script src="http://code.jquery.com/jquery.js"></script>
+<script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+
 <script>
     Date.prototype.Format = function (fmt) { //author: meizz 
         var o = {
@@ -115,97 +114,100 @@
         };
         if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
         for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) :
+                (("00" + o[k]).substr(("" + o[k]).length)));
         return fmt;
     }
 
     var initdata = {
         'AccountID': 10000,
-        'AccountName':'KAka',
+        'AccountName': 'KAka',
         'Logo': 'imgs/face.jpg',
-        'Grouplist': [
-            {
+        'Grouplist': [{
                 'Gname': 'GName1',
-                'AccountList': [
-                    { 'AccountID': '10001', 'AccountName': 'AName1', 'AccountLogo': 'imgs/Skip.png' },
-                    { 'AccountID': '10002', 'AccountName': 'AName2', 'AccountLogo': 'imgs/Smile.png' }
+                'Open': true,
+                'AccountList': [{
+                        'AccountID': '10001',
+                        'AccountName': 'AName1',
+                        'AccountLogo': 'imgs/face.jpg'
+                    },
+                    {
+                        'AccountID': '10002',
+                        'AccountName': 'AName2',
+                        'AccountLogo': 'imgs/Smile.png'
+                    }
                 ]
             },
             {
                 'Gname': 'GName1',
-                'AccountList': [
-                    { 'AccountID': '10001', 'AccountName': 'AName1', 'AccountLogo': 'imgs/Skip.png' },
-                    { 'AccountID': '10002', 'AccountName': 'AName2', 'AccountLogo': 'imgs/Smile.png' }
+                'Open': true,
+                'AccountList': [{
+                        'AccountID': '10003',
+                        'AccountName': 'AName1',
+                        'AccountLogo': 'imgs/face.jpg'
+                    },
+                    {
+                        'AccountID': '10004',
+                        'AccountName': 'AName2',
+                        'AccountLogo': 'imgs/Smile.png'
+                    }
                 ]
             }
         ]
     }
 
-    console.log(initdata);
-
-    function filldata(params) {
-        
-    }
-
-    $(function () {
-
-        
-
-        $('.groupName').click(function () {
-            var $children = $(this).siblings();
-            if ($children.is(':hidden')) {
-                $children.show();
-            } else {
-                $children.hide();
-            }
-        })
-
-        $('.grouplist li').on('click', function (e) {
-            //将当前信息保存起来
-            var storge = window.localStorage,
-                //获取当前选中人的chat记录，显示到当前窗口
-                curaccountid = this.dataset.account,
-                curacc_lastMsginfo = storge.getItem(curaccountid),
-                $content = $('.content'),
-                lastaccountid = $('#lastchatAccountid').val();
-
-            if (curaccountid != lastaccountid) {
-                $content.empty().append(curacc_lastMsginfo);
-                $('#lastchatAccountid').val(curaccountid);//将当前选中account 存起来
-                $content.scrollTop($content[0].scrollHeight);
-                $('#msgarea').val('');
-
-                $(this).addClass("libgcolor").siblings().removeClass("libgcolor");
-            }
-        });
-        // 监听键盘组合键
-        $(document).keydown(function (oEvent) {
-            if (oEvent.keyCode == 13 && oEvent.ctrlKey) {
-                var msg = $("#msgarea").val(), $content = $('.content'),
-                    time = new Date().Format("yyyy-MM-dd hh:mm"),
-                    msghtml = "";
-                //todo 发送到后台处理
-                msghtml += '<div class="msgright"><div class="content_text fl"><p>' + msg + '</p></div><div class="fr"><img src="imgs/face.jpg" alt="555"></div></div>';
-                msghtml += '<div class="msgtime"><i>' + time + '</i></div>';
-                $content.append(msghtml);
-                $content.scrollTop($content[0].scrollHeight);
-                //写入本地localstorage
+    new Vue({
+        el: "#app",
+        data: {
+            lastaccountid: document.getElementById('lastchatAccountid'),
+            msgcontent: document.getElementsByClassName('content'),
+            UserInfo: initdata
+        },
+        mounted:function(){
+            console.log('init...');
+        },
+        methods: {
+            selectfriend: function (e) {
                 var storge = window.localStorage,
-                    curaccountid = $('#lastchatAccountid').val(),
-                    lastmsginfo = storge.getItem(curaccountid);
-                storge.setItem(curaccountid, (lastmsginfo == null ? "" : lastmsginfo) + msghtml);
+                    curaccountid = e.currentTarget.dataset.account,
+                    curacc_lastMsginfo = storge.getItem(curaccountid);
+                if (curaccountid != this.lastaccountid.value) {
+                    this.msgcontent[0].innerHTML = curacc_lastMsginfo;
+                    this.lastaccountid.value = curaccountid;
+                    this.msgcontent[0].scrollTop = this.msgcontent[0].scrollHeight;
+                    var lis = document.querySelectorAll('.linkgroup li');
+                    for (var index = 0; index < lis.length; index++) {
+                        lis[index].classList.remove('libgcolor');
+                    }
+                    e.currentTarget.classList.add('libgcolor');
+                }
+            },
+            clearcache: function () {
+                var storage = window.localStorage;
+                storage.removeItem(this.lastaccountid.value);
+                this.msgcontent[0].innerHTML = "";
+            },
+            send: function (oEvent) {
+                if (oEvent.keyCode == 13 && oEvent.ctrlKey) {
 
+                    var msg = oEvent.currentTarget.value,
+                        time = new Date().Format("yyyy-MM-dd hh:mm"),
+                        msghtml = "";
+
+                    //todo 发送到后台处理
+                    msghtml += '<div class="msgright"><div class="content_text fl"><p>' + msg +
+                        '</p></div><div class="fr"><img src="imgs/face.jpg" alt="555"></div></div>';
+                    msghtml += '<div class="msgtime"><i>' + time + '</i></div>';
+                    this.msgcontent[0].innerHTML += msghtml;
+                    this.msgcontent[0].scrollTop = this.msgcontent[0].scrollHeight;
+                    var storge = window.localStorage,
+                        lastmsginfo = storge.getItem(this.lastaccountid.value);
+                    storge.setItem(this.lastaccountid.value, (lastmsginfo == null ? "" : lastmsginfo) +
+                        msghtml);
+                }
             }
-        });
-
-        $('#clearMsg').on('click', function () {
-            var storage = window.localStorage,
-                lastaccountid = $('#lastchatAccountid').val();
-            storage.removeItem(lastaccountid);
-            $('.content').empty();
-        })
+        }
     });
-
 </script>
 
 </html>
