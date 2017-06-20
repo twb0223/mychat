@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +8,6 @@
     <link rel="stylesheet" href="css/main.css">
     <title>Chat</title>
 </head>
-
 <body>
     <div class="all" id="app">
         <div class="main">
@@ -22,29 +20,21 @@
                         <span>{{UserInfo.AccountName}}</span>
                     </div>
                 </div>
-
                 <div class="search">
                     <img src="imgs/search.png" alt="">
                     <input type="text" placeholder="搜索" v-model="key" />
                 </div>
-
-
                 <div class="tabpanle">
                     <div class="linkgroup" v-for="item in filterList">
                         <span class="groupName" @click.self='item.Open=!item.Open'>{{item.Gname}}</span>
-
                         <ul class='grouplist' v-for="item2 in item.AccountList" v-show="item.Open">
-
                             <li v-bind:data-account="item2.AccountID" @click='selectfriend'>
                                 <img v-bind:src="item2.AccountLogo" alt="name">
                                 <span>{{item2.AccountName}}</span>
                             </li>
-
                         </ul>
                     </div>
-
                 </div>
-
                 <div class="setting">
                     <ul>
                         <li>
@@ -61,9 +51,8 @@
             <!--rightcontent start-->
             <div class="right">
                 <div class="content">
-
+                    <div class='welcome'>Have fun!</div>
                 </div>
-
                 <!--chatwindows start-->
                 <div class="chatwindows">
                     <div class="chattool">
@@ -72,16 +61,11 @@
                             <li> <img src="imgs/skip.png" alt="setting" @click='clearcache'></li>
                         </ul>
                     </div>
-
                     <div class="chattext">
                         <textarea name="" id="msgarea" cols="30" rows="8" class="msgarea" placeholder="在此处输入消息(Ctrl+Enter发送)" @keydown='send'></textarea>
                     </div>
-
-                    <!--  <div class="footbar">
-                  <img src="imgs/Skip.png" alt="Send" class="btnimg">
-                </div> -->
+             
                 </div>
-
                 <!--chatwindows end-->
             </div>
             <!--rightcontent end-->
@@ -115,49 +99,19 @@
         data: {
             lastaccountid: document.getElementById('lastchatAccountid'),
             msgcontent: document.getElementsByClassName('content'),
-            UserInfo: {
-                'AccountID': 10000,
-                'AccountName': 'KAka',
-                'Logo': 'imgs/face.jpg',
-                'Grouplist': [{
-                        'Gname': 'GName1',
-                        'Open': true,
-                        'AccountList': [{
-                                'AccountID': '10001',
-                                'AccountName': 'AName1',
-                                'AccountLogo': 'imgs/face.jpg'
-                            },
-                            {
-                                'AccountID': '10002',
-                                'AccountName': 'AName2',
-                                'AccountLogo': 'imgs/Smile.png'
-                            }
-                        ]
-                    },
-                    {
-                        'Gname': 'GName2',
-                        'Open': true,
-                        'AccountList': [{
-                                'AccountID': '10003',
-                                'AccountName': 'AName4',
-                                'AccountLogo': 'imgs/face.jpg'
-                            },
-                            {
-                                'AccountID': '10004',
-                                'AccountName': 'ANam5',
-                                'AccountLogo': 'imgs/Smile.png'
-                            }
-                        ]
-                    }
-                ]
-            },
+            UserInfo: '',
             key: ''
         },
         mounted: function () {
-            this.msgcontent.innerHTML = "<div class='welcome'>Have fun!</div>";
+            this.getgrouplist();
         },
         computed: {
             filterList: function () {
+                return this.searchlist();
+            }
+        },
+        methods: {
+            searchlist: function () {
                 var key = this.key;
                 var orglist = this.UserInfo.Grouplist;
                 if (key) {
@@ -180,9 +134,14 @@
                     return gplist;
                 }
                 return this.UserInfo.Grouplist;
-            }
-        },
-        methods: {
+            },
+            getgrouplist: function () {
+                var _this = this;
+                axios.get('/getlist')
+                    .then(function (response) {
+                        _this.UserInfo = response.data;
+                    });
+            },
             selectfriend: function (e) {
                 var storge = window.localStorage,
                     curaccountid = e.currentTarget.dataset.account,
@@ -209,9 +168,7 @@
                     var msg = oEvent.currentTarget.value,
                         time = new Date().Format("yyyy-MM-dd hh:mm"),
                         msghtml = "";
-
                     //todo 发送到后台处理
-
                     axios.post('/send', {
                             sendmsg: msg,
                             sender: 10000,
@@ -220,6 +177,7 @@
                         .then(function (response) {
                             console.log(response);
                         });
+
                     msghtml += '<div class="msgright"><div class="content_text fl"><p>' + msg +
                         '</p></div><div class="fr"><img src="imgs/face.jpg" alt="555"></div></div>';
                     msghtml += '<div class="msgtime"><i>' + time + '</i></div>';
