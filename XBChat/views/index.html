@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -210,6 +211,15 @@
                         msghtml = "";
 
                     //todo 发送到后台处理
+
+                    axios.post('/send', {
+                            sendmsg: msg,
+                            sender: 10000,
+                            recv: 10001
+                        })
+                        .then(function (response) {
+                            console.log(response);
+                        });
                     msghtml += '<div class="msgright"><div class="content_text fl"><p>' + msg +
                         '</p></div><div class="fr"><img src="imgs/face.jpg" alt="555"></div></div>';
                     msghtml += '<div class="msgtime"><i>' + time + '</i></div>';
@@ -217,11 +227,13 @@
                     this.msgcontent[0].scrollTop = this.msgcontent[0].scrollHeight;
                     var storge = window.localStorage,
                         lastmsginfo = storge.getItem(this.lastaccountid.value);
-                    storge.setItem(this.lastaccountid.value, (lastmsginfo == null ? "" : lastmsginfo) +
+                    storge.setItem(this.lastaccountid.value, (lastmsginfo == null ? "" :
+                            lastmsginfo) +
                         msghtml);
                 }
             }
         }
     });
 </script>
+
 </html>
