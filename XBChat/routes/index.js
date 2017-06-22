@@ -12,7 +12,7 @@ var initdata = {
       'AccountList': [{
           'AccountID': '10001',
           'AccountName': 'AName1',
-          'AccountLogo': 'imgs/face.jpg'
+          'AccountLogo': 'imgs/friends.png'
         },
         {
           'AccountID': '10002',
@@ -32,8 +32,9 @@ var initdata = {
         {
           'AccountID': '10004',
           'AccountName': 'ANam5',
-          'AccountLogo': 'imgs/Smile.png'
-        }, {
+          'AccountLogo': 'imgs/friends.png'
+        },
+        {
           'AccountID': '10005',
           'AccountName': 'CCCCC',
           'AccountLogo': 'imgs/Smile.png'
@@ -48,7 +49,6 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/login', function (req, res, next) {
-
   res.json({
     url: '/index'
   });
@@ -66,8 +66,7 @@ router.get('/getlist', function (req, res, next) {
 
 router.post('/send', function (req, res, next) {
   res.json({
-    code: '1',
-    msg: 'ok'
+    msg:'返回信息'+new Date()
   });
 });
 

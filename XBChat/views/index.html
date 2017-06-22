@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="css/main.css">
     <title>Chat</title>
 </head>
+
 <body>
     <div class="all" id="app">
         <div class="main">
@@ -64,14 +66,13 @@
                     <div class="chattext">
                         <textarea name="" id="msgarea" cols="30" rows="8" class="msgarea" placeholder="在此处输入消息(Ctrl+Enter发送)" @keydown='send'></textarea>
                     </div>
-             
+
                 </div>
                 <!--chatwindows end-->
             </div>
             <!--rightcontent end-->
         </div>
     </div>
-
     <input type="hidden" id="lastchatAccountid" value="11" />
 </body>
 <script src="js/vue.min.js"></script>
@@ -164,7 +165,7 @@
             },
             send: function (oEvent) {
                 if (oEvent.keyCode == 13 && oEvent.ctrlKey) {
-
+                    var _this = this;
                     var msg = oEvent.currentTarget.value,
                         time = new Date().Format("yyyy-MM-dd hh:mm"),
                         msghtml = "";
@@ -175,19 +176,24 @@
                             recv: 10001
                         })
                         .then(function (response) {
-                            console.log(response);
-                        });
+                            msghtml += '<div class="msgright"><div class="content_text fl"><p>' + msg +
+                                '</p></div><div class="fr"><img src="imgs/face.jpg" alt="555"></div></div>';
+                            msghtml += '<div class="msgtime"><i>' + time + '</i></div>';
+                            if (response.data.msg) {
 
-                    msghtml += '<div class="msgright"><div class="content_text fl"><p>' + msg +
-                        '</p></div><div class="fr"><img src="imgs/face.jpg" alt="555"></div></div>';
-                    msghtml += '<div class="msgtime"><i>' + time + '</i></div>';
-                    this.msgcontent[0].innerHTML += msghtml;
-                    this.msgcontent[0].scrollTop = this.msgcontent[0].scrollHeight;
-                    var storge = window.localStorage,
-                        lastmsginfo = storge.getItem(this.lastaccountid.value);
-                    storge.setItem(this.lastaccountid.value, (lastmsginfo == null ? "" :
-                            lastmsginfo) +
-                        msghtml);
+                                msghtml +=
+                                    '<div class="msgleft"><div class="fl"><img src="imgs/face.jpg" alt="6666"></div><div class="content_text fr"><p>' +
+                                    response.data.msg + '</p></div></div>';
+                                msghtml += '<div class="msgtime"><i>' + time + '</i></div>';
+                            }
+                            _this.msgcontent[0].innerHTML += msghtml;
+                            _this.msgcontent[0].scrollTop = _this.msgcontent[0].scrollHeight;
+                            var storge = window.localStorage,
+                                lastmsginfo = storge.getItem(_this.lastaccountid.value);
+                            storge.setItem(_this.lastaccountid.value, (lastmsginfo == null ? "" :
+                                    lastmsginfo) +
+                                msghtml);
+                        });
                 }
             }
         }

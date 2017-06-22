@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="css/main.css">
     <title>Login</title>
 </head>
-
 <body>
     <div class="login_main" id="app">
         <div class="login_form">
@@ -19,9 +18,16 @@
                     <input type="text" name="password" v-model="password" placeholder="输入密码">
                 </div>
             </div>
+
+            <div class="thirdlogin">
+                <img src="imgs/qq.png" alt="QQ登陆">
+                <img src="imgs/wechat.png" alt="微信登陆">
+                <img src="imgs/weibo.png" alt="微博登陆">
+            </div>
+
             <div class="login_btn">
                 <input type="button" value="Login" @click='logining'>
-                <input type="button" value="Cancel">
+                <input type="button" value="Cancel" @click='cancel'>
             </div>
         </div>
     </div>
@@ -39,12 +45,18 @@
             logining: function () {
                 var account = this.account,
                     pwd = this.password;
-                 axios.post('/login', {
-                            account: account,
-                            password: pwd
-                        }).then(function(response){
-                            window.location.href=response.data.url;
-                        });
+                axios.post('/login', {
+                    account: account,
+                    password: pwd
+                }).then(function (response) {
+                    if (response.data.url) {
+                        window.location.href = response.data.url;
+                    }
+                });
+            },
+            cancel: function () {
+                this.account = '';
+                this.password = '';
             }
         }
     });
