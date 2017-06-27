@@ -143,3 +143,10 @@ table {
 .fl {
     float: left;
 }
+.p_center{
+    vertical-align: middle;
+    text-align: center;
+}
+.display_none{
+    display: none;
+}

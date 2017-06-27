@@ -23,7 +23,7 @@
 /*左侧菜单*/
 
 .leftmenu {
-    position: relative;
+    /*position: relative;*/
     float: left;
     height: 100%;
     width: 300px;
@@ -60,7 +60,7 @@
 
 .search {
     padding-top: 8px;
-    position: relative;
+    /*position: relative;*/
     text-align: center;
 }
 
@@ -78,6 +78,7 @@
     border: 0px solid #ddd;
     background-color: #eee;
     outline: none;
+    border-bottom: 1px solid #ddd;
 }
 
 
@@ -157,10 +158,22 @@
 }
 
 .right {
-    padding-top: 36px;
+    /*padding-top: 36px;*/
     width: 1060px;
     float: right;
     font-family: "Consolas";
+}
+
+.righttitle {
+    vertical-align: middle;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.titleimg {
+    width: 50px;
+    height: 50px;
+    border-radius: 30px;
 }
 
 .content {
@@ -335,7 +348,7 @@
     border: 0px solid #ddd;
     overflow-x: hidden;
     overflow-y: auto;
-    height: 176px;
+    height: 150px;
     font-size: 14px;
     font-family: "Consolas";
 }
@@ -363,6 +376,7 @@
     border-radius: 0;
     background: rgba(0, 0, 0, 0.1);
 }
+
 
 /*.footbar{
     height: 45px;

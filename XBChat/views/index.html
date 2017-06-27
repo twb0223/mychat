@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +8,6 @@
     <link rel="stylesheet" href="css/main.css">
     <title>Chat</title>
 </head>
-
 <body>
     <div class="all" id="app">
         <div class="main">
@@ -17,7 +15,7 @@
             <div class="leftmenu">
                 <div class="userinfo">
                     <div class="userinfo_img">
-                        <img v-bind:src="UserInfo.Logo" alt=""></div>
+                        <img v-bind:src="UserInfo.Logo" v-bind:alt="UserInfo.AccountID"></div>
                     <div class="userinfo_name">
                         <span>{{UserInfo.AccountName}}</span>
                     </div>
@@ -28,10 +26,10 @@
                 </div>
                 <div class="tabpanle">
                     <div class="linkgroup" v-for="item in filterList">
-                        <span class="groupName" @click.self='item.Open=!item.Open'>{{item.Gname}}</span>
+                        <div class="groupName" @click.self='item.Open=!item.Open'>{{item.Gname}}({{item.AccountList.length}})</div>
                         <ul class='grouplist' v-for="item2 in item.AccountList" v-show="item.Open">
                             <li v-bind:data-account="item2.AccountID" @click='selectfriend'>
-                                <img v-bind:src="item2.AccountLogo" alt="name">
+                                <img v-bind:src="item2.AccountLogo" v-bind:alt="item2.AccountID">
                                 <span>{{item2.AccountName}}</span>
                             </li>
                         </ul>
@@ -52,8 +50,11 @@
 
             <!--rightcontent start-->
             <div class="right">
-                <div class="content">
-                    <div class='welcome'>Have fun!</div>
+                <div class="righttitle">
+                    <img class="titleimg" v-bind:src="selectedPerson.AccountLogo" v-show="selectedPerson.AccountLogo!=''" v-bind:alt="selectedPerson.AccountID">
+                </div>
+                <div class="content" id='rightmsgcontent'>
+                    <div class="welcome">have fun !</div>
                 </div>
                 <!--chatwindows start-->
                 <div class="chatwindows">
@@ -64,16 +65,15 @@
                         </ul>
                     </div>
                     <div class="chattext">
-                        <textarea name="" id="msgarea" cols="30" rows="8" class="msgarea" placeholder="在此处输入消息(Ctrl+Enter发送)" @keydown='send'></textarea>
+                        <textarea name="" id="msgarea" cols="30" rows="8" v-model='sendmsg' class="msgarea" placeholder="在此处输入消息(Ctrl+Enter发送)" @keydown='send'></textarea>
                     </div>
-
                 </div>
                 <!--chatwindows end-->
             </div>
             <!--rightcontent end-->
         </div>
     </div>
-    <input type="hidden" id="lastchatAccountid" value="11" />
+    <!--<input type="hidden" id="lastchatAccountid" v-model="selectedPerson.AccountID" />-->
 </body>
 <script src="js/vue.min.js"></script>
 <script src="js/axios.min.js"></script>
@@ -94,14 +94,27 @@
                 (("00" + o[k]).substr(("" + o[k]).length)));
         return fmt;
     }
-
     new Vue({
         el: "#app",
         data: {
-            lastaccountid: document.getElementById('lastchatAccountid'),
-            msgcontent: document.getElementsByClassName('content'),
+            sendmsg: '',
             UserInfo: '',
-            key: ''
+            key: '',
+            selectedPerson: {
+                AccountID: '',
+                AccountLogo: '',
+                AccountName: ''
+            },
+            msgcache: {
+                sendId: '',
+                recvId: '',
+                msglist: [{
+                    msg: '',
+                    time: '',
+                    flag: '' //s=发送数据，r=接收数据
+                }]
+            },
+            storagekey: ''
         },
         mounted: function () {
             this.getgrouplist();
@@ -112,17 +125,27 @@
             }
         },
         methods: {
+            htmlEncode: function (str) {
+                var div = document.createElement("div");
+                div.appendChild(document.createTextNode(str));
+                return div.innerHTML;
+            },
+            htmlDecode: function (str) {
+                var div = document.createElement("div");
+                div.innerHTML = str;
+                return div.innerText;
+            },
             searchlist: function () {
-                var key = this.key;
-                var orglist = this.UserInfo.Grouplist;
+                let key = this.key;
+                let orglist = this.UserInfo.Grouplist;
                 if (key) {
-                    var gplist = [];
-                    for (var i = 0; i < orglist.length; i++) {
-                        var gp = {};
+                    let gplist = [];
+                    for (let i = 0; i < orglist.length; i++) {
+                        let gp = {};
                         gp.Open = true;
                         gp.Gname = orglist[i].Gname;
                         gp.AccountList = [];
-                        for (var j = 0; j < orglist[i].AccountList.length; j++) {
+                        for (let j = 0; j < orglist[i].AccountList.length; j++) {
                             if (orglist[i].AccountList[j].AccountName.toLowerCase().indexOf(key.toLowerCase()) !=
                                 -1) {
                                 gp.AccountList.push(orglist[i].AccountList[j]);
@@ -137,67 +160,93 @@
                 return this.UserInfo.Grouplist;
             },
             getgrouplist: function () {
-                var _this = this;
+                let _this = this;
                 axios.get('/getlist')
                     .then(function (response) {
                         _this.UserInfo = response.data;
                     });
             },
+            rendermsg: function () {
+                let strhtml = "",
+                    mlist = (this.msgcache.msglist == null) ? [] : this.msgcache.msglist,
+                    el_content = document.getElementById('rightmsgcontent');
+                for (var i = 0; i < mlist.length; i++) {
+                    if (mlist[i].flag === 's') {
+                        strhtml += '<div class="msgright"><div class="content_text fl"><p>' + mlist[i].msg +
+                            '</p></div><div class="fr"><img src="' + this.UserInfo.Logo +
+                            '" alt="send"></div></div>';
+                    } else {
+                        strhtml += ' <div class="msgleft" ><div class="fl"><img src="' + this.selectedPerson
+                            .AccountLogo + '" alt="recv"></div><div class="content_text fr"><p>' + mlist[i]
+                            .msg + '</p></div></div>';
+                    }
+                    strhtml += '<div class="msgtime"><i>' + mlist[i].time + '</i></div>';
+                }
+                el_content.innerHTML = strhtml;
+                el_content.scrollTop = el_content.scrollHeight;
+            },
             selectfriend: function (e) {
-                var storge = window.localStorage,
-                    curaccountid = e.currentTarget.dataset.account,
-                    curacc_lastMsginfo = storge.getItem(curaccountid);
-                if (curaccountid != this.lastaccountid.value) {
-                    this.msgcontent[0].innerHTML = curacc_lastMsginfo;
-                    this.lastaccountid.value = curaccountid;
-                    this.msgcontent[0].scrollTop = this.msgcontent[0].scrollHeight;
-                    var lis = document.querySelectorAll('.linkgroup li');
+                let storge = window.localStorage,
+                    curaccountid = e.currentTarget.dataset.account;
+                if (curaccountid != this.selectedPerson.AccountID) {
+                    this.selectedPerson.AccountID = curaccountid;
+                    this.storagekey = this.UserInfo.AccountID + '_' + this.selectedPerson.AccountID;
+                    let curacc_lastMsginfo = storge.getItem(this.storagekey);
+                    this.msgcache.sendId = this.UserInfo.AccountID;
+                    this.msgcache.recvId = curaccountid;
+                    this.msgcache.msglist = (JSON.parse(curacc_lastMsginfo) == null) ? [] : JSON.parse(
+                        curacc_lastMsginfo);
+                    this.selectedPerson.AccountLogo = e.currentTarget.querySelector('img').src;
+                    let lis = document.querySelectorAll('.linkgroup li');
                     for (var index = 0; index < lis.length; index++) {
                         lis[index].classList.remove('libgcolor');
                     }
                     e.currentTarget.classList.add('libgcolor');
+                    this.rendermsg();
                 }
             },
             clearcache: function () {
-                var storage = window.localStorage;
-                storage.removeItem(this.lastaccountid.value);
-                this.msgcontent[0].innerHTML = "";
+                let storage = window.localStorage;
+                storage.removeItem(this.storagekey);
+                this.msgcache.msglist = [];
+                this.rendermsg();
             },
             send: function (oEvent) {
                 if (oEvent.keyCode == 13 && oEvent.ctrlKey) {
-                    var _this = this;
-                    var msg = oEvent.currentTarget.value,
-                        time = new Date().Format("yyyy-MM-dd hh:mm"),
-                        msghtml = "";
-                    //todo 发送到后台处理
+                    let _this = this,
+                        _msg = _this.htmlEncode(oEvent.currentTarget.value),
+                        _time = new Date().Format("yyyy-MM-dd hh:mm:ss");
+                    //todo 发送到后台处理  
                     axios.post('/send', {
-                            sendmsg: msg,
-                            sender: 10000,
-                            recv: 10001
+                            sendmsg: _msg,
+                            sender: _this.UserInfo.AccountID,
+                            recv: _this.selectedPerson.AccountID
                         })
                         .then(function (response) {
-                            msghtml += '<div class="msgright"><div class="content_text fl"><p>' + msg +
-                                '</p></div><div class="fr"><img src="imgs/face.jpg" alt="555"></div></div>';
-                            msghtml += '<div class="msgtime"><i>' + time + '</i></div>';
-                            if (response.data.msg) {
-
-                                msghtml +=
-                                    '<div class="msgleft"><div class="fl"><img src="imgs/face.jpg" alt="6666"></div><div class="content_text fr"><p>' +
-                                    response.data.msg + '</p></div></div>';
-                                msghtml += '<div class="msgtime"><i>' + time + '</i></div>';
-                            }
-                            _this.msgcontent[0].innerHTML += msghtml;
-                            _this.msgcontent[0].scrollTop = _this.msgcontent[0].scrollHeight;
-                            var storge = window.localStorage,
-                                lastmsginfo = storge.getItem(_this.lastaccountid.value);
-                            storge.setItem(_this.lastaccountid.value, (lastmsginfo == null ? "" :
-                                    lastmsginfo) +
-                                msghtml);
+                            let storge = window.localStorage,
+                                storagemsg = storge.getItem(_this.storagekey),
+                                cursendmsg = {
+                                    msg: _msg,
+                                    time: _time,
+                                    flag: 's'
+                                },
+                                currecvmsg = {
+                                    msg: response.data.msg,
+                                    time: _time,
+                                    flag: 'r'
+                                },
+                                lastmsginfo = JSON.parse(storagemsg) == null ? [] : JSON.parse(
+                                    storagemsg);
+                            lastmsginfo.push(cursendmsg);
+                            lastmsginfo.push(currecvmsg);
+                            storge.setItem(_this.storagekey, JSON.stringify(lastmsginfo));
+                            _this.msgcache.msglist = lastmsginfo;
+                            _this.rendermsg();
+                            _this.sendmsg = '';
                         });
                 }
             }
         }
     });
 </script>
-
 </html>

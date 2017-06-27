@@ -4,10 +4,10 @@ var request = require('request');
 var url = 'api';
 var initdata = {
   'AccountID': 10000,
-  'AccountName': 'KAka',
+  'AccountName': '张三',
   'Logo': 'imgs/face.jpg',
   'Grouplist': [{
-      'Gname': 'GName1',
+      'Gname': '工作',
       'Open': true,
       'AccountList': [{
           'AccountID': '10001',
@@ -15,14 +15,39 @@ var initdata = {
           'AccountLogo': 'imgs/friends.png'
         },
         {
-          'AccountID': '10002',
+          'AccountID': '10012302',
+          'AccountName': 'AName2',
+          'AccountLogo': 'imgs/Smile.png'
+        },
+        {
+          'AccountID': '1101202',
+          'AccountName': 'AName2',
+          'AccountLogo': 'imgs/Smile.png'
+        },
+        {
+          'AccountID': '1202102',
+          'AccountName': 'AName3',
+          'AccountLogo': 'imgs/Smile.png'
+        },
+        {
+          'AccountID': '1302102',
+          'AccountName': 'AName4',
+          'AccountLogo': 'imgs/Smile.png'
+        },
+        {
+          'AccountID': '140022',
+          'AccountName': 'AName5',
+          'AccountLogo': 'imgs/Smile.png'
+        },
+        {
+          'AccountID': '1240202',
           'AccountName': 'AName2',
           'AccountLogo': 'imgs/Smile.png'
         }
       ]
     },
     {
-      'Gname': 'GName2',
+      'Gname': '学习',
       'Open': true,
       'AccountList': [{
           'AccountID': '10003',
@@ -43,14 +68,51 @@ var initdata = {
     }
   ]
 };
+var Userlist = [{
+    AccountID: '10001',
+    Password: '1'
+  },
+  {
+    AccountID: '10003',
+    Password: '1'
+  },
+  {
+    AccountID: '10004',
+    Password: ''
+  },
+  {
+    AccountID: '1302102',
+    Password: ''
+  },
+  {
+    AccountID: '10012302',
+    Password: ''
+  },
+  {
+    AccountID: '140022',
+    Password: ''
+  }
+]
 /* GET home page. */
-router.get('/', function (req, res, next) {
+// router.get('/', function (req, res, next) {
+//   res.render('login');
+// });
+
+router.get('/', (req, res, next) => {
   res.render('login');
 });
 
 router.post('/login', function (req, res, next) {
+  //调用api验证合法性
+  var redirecturl = '';
+  for (var i = 0; i < Userlist.length; i++) {
+    if (Userlist[i].AccountID === req.body.account && Userlist[i].Password === req.body.password) {
+      redirecturl = '/index';
+      break;
+    }
+  }
   res.json({
-    url: '/index'
+    url: redirecturl
   });
 });
 
@@ -59,15 +121,12 @@ router.get('/index', function (req, res, next) {
     title: 'chat'
   });
 });
-
 router.get('/getlist', function (req, res, next) {
   res.json(initdata);
 });
-
 router.post('/send', function (req, res, next) {
   res.json({
-    msg:'返回信息'+new Date()
+    msg: '返回信息' + new Date()
   });
 });
-
 module.exports = router;
