@@ -1,6 +1,4 @@
-
-### 基于vue+express的web聊天工具
-
+### Express+vue2
 ```
     npm install
     npm start
