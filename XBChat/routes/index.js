@@ -1,7 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request');
+var account = require('../services/account')
+
 var url = 'api';
+
 var initdata = {
   'AccountID': 10000,
   'AccountName': '张三',
@@ -93,27 +96,23 @@ var Userlist = [{
     Password: ''
   }
 ]
+
 /* GET home page. */
 // router.get('/', function (req, res, next) {
 //   res.render('login');
 // });
 
 router.get('/', (req, res, next) => {
+  account.queryById(req, res, next);
+  //res.render('login');
+});
+
+router.get('/login', (req, res, next) => {
   res.render('login');
 });
 
 router.post('/login', function (req, res, next) {
-  //调用api验证合法性
-  var redirecturl = '';
-  for (var i = 0; i < Userlist.length; i++) {
-    if (Userlist[i].AccountID === req.body.account && Userlist[i].Password === req.body.password) {
-      redirecturl = '/index';
-      break;
-    }
-  }
-  res.json({
-    url: redirecturl
-  });
+  account.queryByIdAndPwd(req, res, next);
 });
 
 router.get('/index', function (req, res, next) {
