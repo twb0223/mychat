@@ -102,12 +102,12 @@ var Userlist = [{
 //   res.render('login');
 // });
 
-router.get('/', (req, res, next) => {
-  account.queryById(req, res, next);
-  //res.render('login');
-});
+// router.get('/', (req, res, next) => {
+//   account.queryById(req, res, next);
+//   //res.render('login');
+// });
 
-router.get('/login', (req, res, next) => {
+router.get('/', (req, res, next) => {
   res.render('login');
 });
 

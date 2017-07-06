@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="css/main.css">
     <title>Chat</title>
 </head>
+
 <body>
     <div class="all" id="app">
         <div class="main">
@@ -128,12 +130,20 @@
             htmlEncode: function (str) {
                 var div = document.createElement("div");
                 div.appendChild(document.createTextNode(str));
-                return div.innerHTML;
+                var result = div.innerHTML;
+                //createElement 的节点必须添加到body 否则会引起内存泄漏
+                document.body.appendChild(div); //将div追加到页面上
+                document.body.removeChild(div); //将div从页面上删除
+                return result;
             },
             htmlDecode: function (str) {
                 var div = document.createElement("div");
                 div.innerHTML = str;
-                return div.innerText;
+                var result = div.innerText;
+                //createElement 的节点必须添加到body 否则会引起内存泄漏
+                document.body.appendChild(div); //将div追加到页面上
+                document.body.removeChild(div); //将div从页面上删除
+                return result;
             },
             searchlist: function () {
                 let key = this.key;
@@ -186,12 +196,11 @@
                 el_content.scrollTop = el_content.scrollHeight;
             },
             selectfriend: function (e) {
-                let storge = window.localStorage,
-                    curaccountid = e.currentTarget.dataset.account;
+                let curaccountid = e.currentTarget.dataset.account;
                 if (curaccountid != this.selectedPerson.AccountID) {
                     this.selectedPerson.AccountID = curaccountid;
                     this.storagekey = this.UserInfo.AccountID + '_' + this.selectedPerson.AccountID;
-                    let curacc_lastMsginfo = storge.getItem(this.storagekey);
+                    let curacc_lastMsginfo = localStorage.getItem(this.storagekey);
                     this.msgcache.sendId = this.UserInfo.AccountID;
                     this.msgcache.recvId = curaccountid;
                     this.msgcache.msglist = (JSON.parse(curacc_lastMsginfo) == null) ? [] : JSON.parse(
@@ -206,8 +215,7 @@
                 }
             },
             clearcache: function () {
-                let storage = window.localStorage;
-                storage.removeItem(this.storagekey);
+                localStorage.removeItem(this.storagekey);
                 this.msgcache.msglist = [];
                 this.rendermsg();
             },
@@ -223,8 +231,7 @@
                             recv: _this.selectedPerson.AccountID
                         })
                         .then(function (response) {
-                            let storge = window.localStorage,
-                                storagemsg = storge.getItem(_this.storagekey),
+                            let storagemsg = localStorage.getItem(_this.storagekey),
                                 cursendmsg = {
                                     msg: _msg,
                                     time: _time,
@@ -234,12 +241,12 @@
                                     msg: response.data.msg,
                                     time: _time,
                                     flag: 'r'
-                                }, 
+                                },
                                 lastmsginfo = JSON.parse(storagemsg) == null ? [] : JSON.parse(
                                     storagemsg);
                             lastmsginfo.push(cursendmsg);
                             lastmsginfo.push(currecvmsg);
-                            storge.setItem(_this.storagekey, JSON.stringify(lastmsginfo));
+                            localStorage.setItem(_this.storagekey, JSON.stringify(lastmsginfo));
                             _this.msgcache.msglist = lastmsginfo;
                             _this.rendermsg();
                             _this.sendmsg = '';
@@ -249,4 +256,5 @@
         }
     });
 </script>
+
 </html>

@@ -422,14 +422,15 @@
 }
 
 .centerinput input {
-    height: 20px;
-    line-height: 20px;
+    height: 30px;
+    line-height: 30px;
     width: 100%;
     font-size: 16px;
     border: 0px solid #ddd;
     margin-bottom: 20px;
     outline: none;
     border-bottom: 1px solid #ddd;
+    background-color: #fff;
 }
 
 .login_btn {

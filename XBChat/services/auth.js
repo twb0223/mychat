@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 var $conf = require('../conf/conf');
-var $tool=require('../conf/tool');
+var $tool=require('../conf/tools');
 
 var pool = mysql.createPool($conf.mysql);
 
