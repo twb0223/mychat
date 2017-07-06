@@ -49,15 +49,12 @@
                     password: pwd
                 }).then(function (response) {
                     if (response.data.ret.url) {
-                        console.log(response.data.ret);
-                        // window.location.href = response.data.ret.url;
+                        localStorage.setItem(response.data.ret.grouplist.AccountId, response.data.ret
+                            .grouplist);
+                        window.location.href = response.data.ret.url;
+
                     }
                 });
-            },
-            setgroup: function (obj) {
-                //localStorage.setItem(obj.AccountId,)
-                //todo:将得到的好友列表存储到本地。并处理成想要的格式
-                localStorage.setItem(obj.AccountId, obj);
             },
             cancel: function () {
                 this.account = '';

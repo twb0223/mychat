@@ -102,8 +102,8 @@ module.exports = {
                     url = '';
                 }
                 let last = {
-                    'url': url,
-                    'grouplist': result
+                    url: url,
+                    grouplist: result
                 }
                 $tool.jsonwrite(res, last);
                 connection.release();
