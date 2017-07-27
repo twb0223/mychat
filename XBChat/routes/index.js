@@ -71,31 +71,31 @@ var initdata = {
     }
   ]
 };
-var Userlist = [{
-    AccountID: '10001',
-    Password: '1'
-  },
-  {
-    AccountID: '10003',
-    Password: '1'
-  },
-  {
-    AccountID: '10004',
-    Password: ''
-  },
-  {
-    AccountID: '1302102',
-    Password: ''
-  },
-  {
-    AccountID: '10012302',
-    Password: ''
-  },
-  {
-    AccountID: '140022',
-    Password: ''
-  }
-]
+// var Userlist = [{
+//     AccountID: '10001',
+//     Password: '1'
+//   },
+//   {
+//     AccountID: '10003',
+//     Password: '1'
+//   },
+//   {
+//     AccountID: '10004',
+//     Password: ''
+//   },
+//   {
+//     AccountID: '1302102',
+//     Password: ''
+//   },
+//   {
+//     AccountID: '10012302',
+//     Password: ''
+//   },
+//   {
+//     AccountID: '140022',
+//     Password: ''
+//   }
+// ]
 
 /* GET home page. */
 // router.get('/', function (req, res, next) {

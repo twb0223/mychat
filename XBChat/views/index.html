@@ -79,6 +79,7 @@
 </body>
 <script src="js/vue.min.js"></script>
 <script src="js/axios.min.js"></script>
+<script src="js/socket.io.js"></script>
 <script>
     Date.prototype.Format = function (fmt) {
         var o = {
@@ -116,10 +117,12 @@
                     flag: '' //s=发送数据，r=接收数据
                 }]
             },
-            storagekey: ''
+            storagekey: '',
+            socket: ''
         },
         mounted: function () {
             this.getgrouplist();
+            this.initsocket();
         },
         computed: {
             filterList: function () {
@@ -127,6 +130,29 @@
             }
         },
         methods: {
+            initsocket: function () {
+                var that = this;
+                that.socket = io.connect('http://localhost:3000');
+
+                that.socket.emit('login', "kaka");
+
+                that.socket.on('nickExisted', function () {
+                    console.log('nickExisted');
+                });
+                that.socket.on('loginSuccess', function () {
+                    console.log('loginSuccess1111')
+                });
+                that.socket.on('system', function (nickName, userCount, type) {
+                    console.log(nickName + userCount + type);
+                });
+                that.socket.on('newMsg', function (user, msg, color) {
+                    console.log(user+msg+color);
+                });
+                that.socket.on('newImg', function (user, img, color) {
+                    console.log(user+img+color);
+                });
+
+            },
             htmlEncode: function (str) {
                 var div = document.createElement("div");
                 div.appendChild(document.createTextNode(str));
@@ -156,7 +182,7 @@
                         gp.Gname = orglist[i].Gname;
                         gp.AccountList = [];
                         for (let j = 0; j < orglist[i].AccountList.length; j++) {
-                            if (orglist[i].AccountList[j].AccountName.toLowerCase().indexOf(key.toLowerCase()) !=
+                            if (orglist[i].AccountList[j].AccountName.toLowerCase().indexOf(key.toLowerCase()) !==
                                 -1) {
                                 gp.AccountList.push(orglist[i].AccountList[j]);
                             }
@@ -203,7 +229,7 @@
                     let curacc_lastMsginfo = localStorage.getItem(this.storagekey);
                     this.msgcache.sendId = this.UserInfo.AccountID;
                     this.msgcache.recvId = curaccountid;
-                    this.msgcache.msglist = (JSON.parse(curacc_lastMsginfo) == null) ? [] : JSON.parse(
+                    this.msgcache.msglist = (JSON.parse(curacc_lastMsginfo) === null) ? [] : JSON.parse(
                         curacc_lastMsginfo);
                     this.selectedPerson.AccountLogo = e.currentTarget.querySelector('img').src;
                     let lis = document.querySelectorAll('.linkgroup li');
@@ -220,7 +246,7 @@
                 this.rendermsg();
             },
             send: function (oEvent) {
-                if (oEvent.keyCode == 13 && oEvent.ctrlKey) {
+                if (oEvent.keyCode === 13 && oEvent.ctrlKey) {
                     let _this = this,
                         _msg = _this.htmlEncode(oEvent.currentTarget.value),
                         _time = new Date().Format("yyyy-MM-dd hh:mm:ss");
@@ -242,7 +268,7 @@
                                     time: _time,
                                     flag: 'r'
                                 },
-                                lastmsginfo = JSON.parse(storagemsg) == null ? [] : JSON.parse(
+                                lastmsginfo = JSON.parse(storagemsg) === null ? [] : JSON.parse(
                                     storagemsg);
                             lastmsginfo.push(cursendmsg);
                             lastmsginfo.push(currecvmsg);
@@ -251,6 +277,8 @@
                             _this.rendermsg();
                             _this.sendmsg = '';
                         });
+
+                        _this.socket.emit('postMsg',_msg,"green");
                 }
             }
         }
