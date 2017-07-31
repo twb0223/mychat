@@ -11,7 +11,6 @@ module.exports = {
     add: function (req, res, next) {
         pool.getConnection(function (err, connetion) {
             var param = req.query || req.params;
-
             connetion.query($sql.insert, [param.user_name, param.password, param.email], function () {
                 if (result) {
                     result = {

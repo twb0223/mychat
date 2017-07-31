@@ -4,7 +4,6 @@ var initServer = function (Server) {
     var arrSockets=[];
 
     io.on('connection', function (socket) {
-        arrSockets.push(socket);
         socket.on('login', function (nickname) {
             if (users.indexOf(nickname) > -1) {
                 socket.emit('nickExisted');
