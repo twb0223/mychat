@@ -31,11 +31,10 @@ module.exports = {
         }
         pool.getConnection(function (err, connection) {
             connection.query($sql.update, [param.name, param.age, +param.id], function (err, result) {
-                // 使用页面进行跳转提示
                 if (result.affectedRows > 0) {
                     res.render('suc', {
                         result: result
-                    }); // 第二个参数可以直接在jade中使用
+                    });
                 } else {
                     res.render('fail', {
                         result: result
@@ -108,5 +107,8 @@ module.exports = {
                 connection.release();
             })
         });
+    },
+    showById:function(){
+        return "";   
     }
 }
