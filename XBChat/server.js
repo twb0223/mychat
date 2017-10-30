@@ -35,9 +35,6 @@ var initServer = function (Server) {
         socket.on('navie',function(){
             console.log("naive");
         }); 
-        socket.on('j20',function(){
-            console.log("j20");
-        });
     });
 }
 module.exports = initServer;
