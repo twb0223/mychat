@@ -30,37 +30,38 @@
             </div>
         </div>
     </div>
-</body>
-<script src="js/vue.min.js"></script>
-<script src="js/axios.min.js"></script>
-
-<script>
-    new Vue({
-        el: '#app',
-        data: {
-            account: '',
-            password: ''
-        },
-        methods: {
-            logining: function () {
-                var account = this.account,
-                    pwd = this.password;
-                axios.post('/login', {
-                    account: account,
-                    password: pwd
-                }).then(function (response) {
-                    if (response.data.ret.url) {
-                        localStorage.setItem(response.data.ret.grouplist.AccountId, response.data.ret
-                            .grouplist);
-                        window.location.href = response.data.ret.url;
-                    }
-                });
+    <script src="js/vue.min.js"></script>
+    <script src="js/axios.min.js"></script>
+    
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                account: '',
+                password: ''
             },
-            cancel: function () {
-                this.account = '';
-                this.password = '';
+            methods: {
+                logining: function () {
+                    var account = this.account,
+                        pwd = this.password;
+                    axios.post('/login', {
+                        account: account,
+                        password: pwd
+                    }).then(function (response) {
+                        if (response.data.ret.url) {
+                            localStorage.setItem(response.data.ret.grouplist.AccountId, response.data.ret
+                                .grouplist);
+                            window.location.href = response.data.ret.url;
+                        }
+                    });
+                },
+                cancel: function () {
+                    this.account = '';
+                    this.password = '';
+                }
             }
-        }
-    });
-</script>
+        });
+    </script>
+
+</body>
 </html>
