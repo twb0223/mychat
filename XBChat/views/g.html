@@ -8,11 +8,6 @@
     <meta name="robots" content="noindex, nofollow">
     <meta name="googlebot" content="noindex, nofollow">
 
-
-    <script type="text/javascript" src="/js/lib/dummy.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="/css/result-light.css">
-
     <script type="text/javascript" src="https://unpkg.com/vue@latest/dist/vue.js"></script>
     <style type="text/css">
         body {
@@ -166,7 +161,7 @@
         <g>
             <polygon :points="points"></polygon>
             <circle cx="100" cy="100" r="80"></circle>
-            <axis-label v-for="(stat, index) in stats" :stat="stat" :index="index" :total="stats.length">
+            <axis-label v-for="(stat, index) in stats" :key="stat.label" :stat="stat" :index="index" :total="stats.length">
             </axis-label>
         </g>
     </script>
@@ -183,7 +178,7 @@
             <polygraph :stats="stats"></polygraph>
         </svg>
         <!-- controls -->
-        <div v-for="stat in stats">
+        <div v-for="stat in stats" :key="stat.label">
             <label>{{stat.label}}</label>
             <input type="range" v-model="stat.value" min="0" max="100">
             <span>{{stat.value}}</span>
