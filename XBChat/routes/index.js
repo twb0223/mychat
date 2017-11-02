@@ -96,5 +96,7 @@ router.post('/send', function (req, res, next) {
 router.get('/worklist',function(req, res, next){
   res.render('worklist');
 })
-
+router.get('/graph',function(req, res, next){
+  res.render('g');
+})
 module.exports = router;
