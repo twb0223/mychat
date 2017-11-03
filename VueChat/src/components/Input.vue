@@ -1,14 +1,16 @@
 <template>
   <div class="Msginput">
       <div class="inputbar"><p>sas</p></div>
-      <div class="inputfiled" contenteditable="true"><p>sdsad</p></div>
+      <div class="inputfiled" contenteditable="true"></div>
   </div>
 </template>
 
 <script>
 export default {
   data() {
-    return {};
+    return {
+        
+    };
   }
 };
 </script>

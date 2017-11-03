@@ -134,6 +134,7 @@ export default {
       _this.UserInfo = initdata;
     },
     selectfriend: function(e) {
+
       let curaccountid = e.currentTarget.dataset.account;
       if (curaccountid != this.selectedPerson.AccountID) {
         this.selectedPerson.AccountID = curaccountid;
@@ -154,7 +155,8 @@ export default {
           lis[index].classList.remove("libgcolor");
         }
         e.currentTarget.classList.add("libgcolor");
-        this.rendermsg();
+        //this.rendermsg();
+        eventBus.$emit("selectid", curaccountid);
       }
     }
   }
