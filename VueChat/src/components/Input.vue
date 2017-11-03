@@ -1,14 +1,78 @@
 <template>
   <div class="Msginput">
-      <div class="inputbar"><p>sas</p></div>
-      <div class="inputfiled" contenteditable="true"></div>
+      <div class="inputbar"><p>emoj </p></div>
+      <div class="inputdiv">
+        <textarea class="inputfiled" placeholder="在此处输入消息(Ctrl+Enter发送)" @keydown='sendMsg'></textarea>
+     </div>
   </div>
 </template>
 
 <script>
+Date.prototype.Format = function(fmt) {
+  var o = {
+    "M+": this.getMonth() + 1, //月份
+    "d+": this.getDate(), //日
+    "h+": this.getHours(), //小时
+    "m+": this.getMinutes(), //分
+    "s+": this.getSeconds(), //秒
+    "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+    S: this.getMilliseconds() //毫秒
+  };
+  if (/(y+)/.test(fmt))
+    fmt = fmt.replace(
+      RegExp.$1,
+      (this.getFullYear() + "").substr(4 - RegExp.$1.length)
+    );
+  for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt))
+      fmt = fmt.replace(
+        RegExp.$1,
+        RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length)
+      );
+  return fmt;
+};
+
 export default {
   data() {
-    return {};
+    return {
+      inputMsg: ""
+    };
+  },
+  methods: {
+    renderMsg: function() {},
+    htmlEncode: function(str) {
+      var div = document.createElement("div");
+      div.appendChild(document.createTextNode(str));
+      var result = div.innerHTML;
+      //createElement 的节点必须添加到body 否则会引起内存泄漏
+      document.body.appendChild(div); //将div追加到页面上
+      document.body.removeChild(div); //将div从页面上删除
+      return result;
+    },
+    htmlDecode: function(str) {
+      var div = document.createElement("div");
+      div.innerHTML = str;
+      var result = div.innerText;
+      //createElement 的节点必须添加到body 否则会引起内存泄漏
+      document.body.appendChild(div); //将div追加到页面上
+      document.body.removeChild(div); //将div从页面上删除
+      return result;
+    },
+    sendMsg: function(oEvent) {
+      if (oEvent.keyCode === 13 && oEvent.ctrlKey) {
+        let _this = this,
+          _msg = _this.htmlEncode(oEvent.currentTarget.value),
+          _time = new Date().Format("yyyy-MM-dd hh:mm:ss");
+        let sendobj = {
+          sendid: "AAA",
+          avater: require("../assets/img/face.jpg"),
+          Msg: _msg,
+          time: _time
+        };
+        eventBus.$emit("sendmsg", sendobj); //注册全局监听，将值传递到Message
+        oEvent.target.innerHTML = "";
+      }
+    }
   }
 };
 </script>
@@ -16,17 +80,22 @@ export default {
 <style>
 .Msginput {
   width: auto;
-  text-indent: 10px;
   /* background-color: #dfdfdf; */
 }
 .inputbar {
+  text-indent: 10px;
   height: 25px;
   line-height: 25px;
-   background-color: #f5f5f5;
+  background-color: #f5f5f5;
   box-shadow: 0 0 10px rgba(0, 204, 204, 0.5);
 }
 .inputfiled {
-  height: 175px;
+  text-indent: 10px;
+  outline: none;
+  resize: none;
+  height: 165px;
+  width: 99.4%;
+  border: 0px solid #ddd;
   overflow-y: scroll;
   overflow-y: auto;
   word-break: break-word;
@@ -35,9 +104,9 @@ export default {
 }
 .inputfiled::-webkit-scrollbar {
   /*滚动条整体样式*/
-  width: 4px;
+  width: 5px;
   /*高宽分别对应横竖滚动条的尺寸*/
-  height: 4px;
+  height: 5px;
 }
 
 .inputfiled::-webkit-scrollbar-thumb {

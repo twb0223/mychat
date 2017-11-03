@@ -21,6 +21,35 @@ var autoOpenBrowser = !!config.dev.autoOpenBrowser
 var proxyTable = config.dev.proxyTable
 
 var app = express()
+
+const server = require('http').Server(app);
+
+const io = require('socket.io')(server);
+
+const http = require('http');
+
+const https = require('https');
+
+var bodyParser = require('body-parser');
+// var multer = require('multer');
+
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+// app.use(multer()); // for parsing multipart/form-data
+
+io.on('connection', (socket) => {
+  // 群聊
+  socket.on('sendGroupMsg', function (data) {
+    socket.broadcast.emit('receiveGroupMsg', data);
+  });
+
+  // 上线
+  socket.on('online', name => {
+    socket.broadcast.emit('online', name)
+  });
+
+})
+
 var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
@@ -80,7 +109,8 @@ devMiddleware.waitUntilValid(() => {
   _resolve()
 })
 
-var server = app.listen(port)
+//var server = app.listen(port)
+server.listen(8080);
 
 module.exports = {
   ready: readyPromise,

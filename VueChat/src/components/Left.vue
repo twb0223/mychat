@@ -2,7 +2,7 @@
     <div class="tabpanle">
         <div class="search">
               <input type="text"  v-model="key" placeholder="查询你的朋友" >
-           <img src="../assets/img/search.png" alt="">
+           <img src="../assets/img/search.png" alt="login">
         </div>
         <div class="linkgroup" v-for="item in filterList" :key="item.Gname">
             <div class="groupName" @click.self='item.Open=!item.Open'>{{item.Gname}}({{item.AccountList.length}})</div>
@@ -134,7 +134,6 @@ export default {
       _this.UserInfo = initdata;
     },
     selectfriend: function(e) {
-
       let curaccountid = e.currentTarget.dataset.account;
       if (curaccountid != this.selectedPerson.AccountID) {
         this.selectedPerson.AccountID = curaccountid;
@@ -176,11 +175,6 @@ export default {
   border-right: 1px solid #ddd;
   /* box-shadow: 0 0 10px rgba(0, 204, 204, 0.5); */
 }
-
-.disp {
-  display: block;
-}
-
 .linkgroup {
   padding-top: 20px;
   text-indent: 20px;
@@ -237,8 +231,8 @@ export default {
 
 .grouplist img {
   vertical-align: middle;
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   border-radius: 30px;
   box-shadow: 0 0 10px #cee2ee;
 }
