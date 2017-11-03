@@ -25,6 +25,7 @@ export default {
   /* display: inline; */
   overflow-x: hidden;
   overflow-y: auto;
+   height: 740px;
   flex: 1; 
   /* background-color: #dfdfdf; */
   /* color: #fafcfd; */

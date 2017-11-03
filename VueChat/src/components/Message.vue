@@ -10,7 +10,7 @@
 export default {
   data() {
     return {
-      selectid: "Let's go!"
+      selectid: ""
     };
   },
   mounted: function() {
@@ -25,8 +25,10 @@ export default {
 <style>
 .Message {
   width: auto;
-  height: 550px;
+  height: 540px;
+
 }
 .msgtip {
+
 }
 </style>

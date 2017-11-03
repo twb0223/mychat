@@ -5,13 +5,11 @@
         <vLeft/>
         <vCenter/>
     </div>
-  <vFoot/>
 </div>
 </template>
 
 <script>
 import vHead from "./Head";
-import vFoot from "./Foot";
 import vLeft from "./Left";
 import vCenter from "./Center";
 export default {
@@ -20,7 +18,6 @@ export default {
   },
   components: {
     vHead,
-    vFoot,
     vLeft,
     vCenter
   }
