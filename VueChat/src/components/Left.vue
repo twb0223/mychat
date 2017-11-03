@@ -1,7 +1,7 @@
 <template>
     <div class="tabpanle">
         <div class="search">
-              <input type="text"  v-model="key">
+              <input type="text"  v-model="key" placeholder="查询你的朋友" >
            <img src="../assets/img/search.png" alt="">
         </div>
         <div class="linkgroup" v-for="item in filterList" :key="item.Gname">
@@ -205,6 +205,7 @@ export default {
   line-height: 20px;
   border: none;
   outline: none;
+  background-color: #f5f5f5;
   border-bottom: 1px solid #ddd;
 }
 
