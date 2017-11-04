@@ -1,15 +1,8 @@
-### 基于Express+vue2+Mysql的在线聊天
+## 基于Express+vue2+Mysql的在线聊天
 
-<hr>
-
-* 基础页面
-* Socket.io 实现消息推送
-* 待续。。。
+### Vuechat 前端页面项目
 
 
-```
-    npm install
-    npm start
+### XBChat 后台服务
 
-```
 
