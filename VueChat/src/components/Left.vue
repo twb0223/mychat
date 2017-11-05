@@ -19,11 +19,11 @@
 <script>
 var initdata = {
   AccountID: 10000,
-  AccountName: "张三",
+  AccountName: "Sam",
   Logo: "../assets/img/face.jpg",
   Grouplist: [
     {
-      Gname: "工作",
+      Gname: "Work",
       Open: true,
       AccountList: [
         {
@@ -44,7 +44,7 @@ var initdata = {
       ]
     },
     {
-      Gname: "学习",
+      Gname: "Study",
       Open: true,
       AccountList: [
         {

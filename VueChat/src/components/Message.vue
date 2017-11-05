@@ -21,7 +21,6 @@ export default {
     };
   },
   updated: function() {
-    //数据更新后 将滚动条滚动到底部
     MsgContain.scrollTop = MsgContain.scrollHeight;
   },
   mounted: function() {
