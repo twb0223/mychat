@@ -1,6 +1,7 @@
 <template>
     <div class='Message' id="MsgContain">
           <br/>
+          <br/>
         <div class="msgtip" v-for="item in sendMsgs" :key="item.time">
           <img :src="item.avater">
             <p class="msgname">{{item.sendid}} {{item.time}}</p>
@@ -8,6 +9,7 @@
               <pre><code>{{item.Msg}}</code></pre>
             </div>
             <br/>
+                   <br/>
         </div>
     </div>
 </template>
@@ -15,7 +17,7 @@
 <script>
 export default {
   data() {
-    return {  
+    return {
       selectid: "",
       sendMsgs: []
     };
@@ -37,7 +39,7 @@ export default {
 
 <style>
 .Message {
-  width: 99.7%;
+  width: 99.9%;
   height: 540px;
   overflow-y: scroll;
   overflow-y: auto;
@@ -91,6 +93,7 @@ export default {
   border-radius: 5px;
   word-break: break-word;
   word-wrap: break-word;
+  box-shadow: 0 0 10px rgba(0, 204, 204, 1);
 }
 .msginfo pre {
   margin-left: 5px;

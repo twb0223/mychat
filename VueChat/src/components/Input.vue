@@ -69,8 +69,11 @@ export default {
           Msg: _msg,
           time: _time
         };
-        eventBus.$emit("sendmsg", sendobj); //注册全局监听，将值传递到Message
-        oEvent.target.innerHTML = "";
+     
+        if (sendobj.Msg) {
+          eventBus.$emit("sendmsg", sendobj); //注册全局监听，将值传递到Message
+          oEvent.currentTarget.value = "";
+        }
       }
     }
   }
@@ -87,20 +90,24 @@ export default {
   height: 25px;
   line-height: 25px;
   background-color: #f5f5f5;
-  box-shadow: 0 0 10px rgba(0, 204, 204, 0.5);
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  /* box-shadow: 0 0 10px rgba(0, 204, 204, 0.5); */
 }
 .inputfiled {
+  clear: both;
   text-indent: 10px;
   outline: none;
   resize: none;
-  height: 165px;
-  width: 99.4%;
+  height: 163px;
+  width: 99.6%;
   border: 0px solid #ddd;
   overflow-y: scroll;
   overflow-y: auto;
   word-break: break-word;
   word-wrap: break-word;
   outline-style: none;
+  border-bottom: 1px solid #ddd;
 }
 .inputfiled::-webkit-scrollbar {
   /*滚动条整体样式*/

@@ -167,12 +167,13 @@ export default {
 
 .tabpanle {
   width: 200px;
-  height: 740px;
+  height: 734px;
   overflow-x: hidden;
   overflow-y: auto;
   float: left;
   background-color: #f5f5f5;
   border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
   background-repeat: repeat-y;
   /* box-shadow: 0 0 10px rgba(0, 204, 204, 0.5); */
 }
