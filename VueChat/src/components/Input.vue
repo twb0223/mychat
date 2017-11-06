@@ -1,6 +1,6 @@
 <template>
   <div class="Msginput">
-      <div class="inputbar"><p>emoj </p></div>
+      <div class="inputbar"><p>emoj</p></div>
       <div class="inputdiv">
         <textarea class="inputfiled" placeholder="在此处输入消息(Ctrl+Enter发送)" @keydown='sendMsg'></textarea>
      </div>
