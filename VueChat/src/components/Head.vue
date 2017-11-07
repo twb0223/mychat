@@ -4,21 +4,11 @@
             <img src="../assets/img/face.jpg" alt="">
         </div>
         <div id="menu">
-            <!-- <ul>
+            <ul>
                 <li>
-                    <a href="">Home</a>
+                    <a href="/">Logout</a>
                 </li>
-                <li>
-                    <a href="">Products</a>
-                </li>
-                <li>
-                    <a href="">Api</a>
-                </li>
-                <li>
-                    <a href="">About</a>
-                </li>
-
-            </ul> -->
+            </ul>
         </div>
     </div>
 </template>
@@ -56,23 +46,20 @@ export default {
 }
 
 #menu {
-  height: 30px;
+  height: 50px;
   width: 300px;
-  margin-top: 15px;
-  margin-left: 100px;
+  float: right;
+}
+#menu ul{
   vertical-align: middle;
+  margin-top: 15px;
+  margin-right: 50px;
 }
-
-#menu ul {
-  margin: 0, auto;
-}
-
 #menu li {
-  margin: 0, auto;
   list-style: none;
   padding: 0;
   margin: 0;
-  float: left;
+  float: right;
 }
 
 #menu li a {
