@@ -1,6 +1,6 @@
 <template>
   <div class="Msginput">
-      <div class="inputbar"><p>emoj</p></div>
+      <div class="inputbar"><img src="../assets/img/Smile.png"></div>
       <div class="inputdiv">
         <textarea class="inputfiled" placeholder="在此处输入消息(Ctrl+Enter发送)" @keydown='sendMsg'></textarea>
      </div>
@@ -87,13 +87,19 @@ export default {
 }
 .inputbar {
   text-indent: 10px;
-  height: 25px;
-  line-height: 25px;
+  height: 26px;
+  line-height: 26px;
   background-color: #f5f5f5;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
-  /* box-shadow: 0 0 10px rgba(0, 204, 204, 0.5); */
+  vertical-align: middle;
 }
+.inputbar img{
+  margin-top: 4px;
+  width: 20px;
+  height: 20px;
+}
+
 .inputfiled {
   clear: both;
   text-indent: 10px;
@@ -109,6 +115,8 @@ export default {
   outline-style: none;
   border-bottom: 1px solid #ddd;
 }
+
+
 .inputfiled::-webkit-scrollbar {
   /*滚动条整体样式*/
   width: 5px;

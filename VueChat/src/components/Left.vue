@@ -5,7 +5,7 @@
            <img src="../assets/img/search.png" alt="login">
         </div>
         <div class="linkgroup" v-for="item in filterList" :key="item.Gname">
-            <div class="groupName" @click.self='item.Open=!item.Open'>{{item.Gname}}({{item.AccountList.length}})</div>
+            <div class="groupName" @click.self='item.Open=!item.Open'><img src='../assets/img/friends.png'>{{item.Gname}}({{item.AccountList.length}})</div>
             <ul class='grouplist' v-for="item2 in item.AccountList" v-show="item.Open" :key="item2.AccountID">
                 <li v-bind:data-account="item2.AccountID" @click='selectfriend'>
                     <img v-bind:src="item2.AccountLogo" v-bind:alt="item2.AccountID">
@@ -209,8 +209,14 @@ export default {
   vertical-align: middle;
   font-size: 14px;
   cursor: pointer;
+  line-height: 20px;
 }
-
+.groupName img{
+  vertical-align: bottom;
+  margin-right: 8px;
+  width: 20px;
+  height: 20px;
+}
 .grouplist {
   padding-top: 5px;
   font-size: 12px;

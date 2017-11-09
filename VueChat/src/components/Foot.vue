@@ -3,7 +3,6 @@
         <div>
             @Copy Right 2017
         </div>
-
     </div>
 </template>
 
