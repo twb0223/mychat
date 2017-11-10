@@ -1,6 +1,10 @@
 <template>
   <div class="Msginput">
-      <div class="inputbar"><img src="../assets/img/Smile.png"></div>
+      <div class="inputbar">
+        <img src="../assets/img/Smile.png">
+        <img src="../assets/img/set.png">
+           <img src="../assets/img/skip.png">
+        </div>
       <div class="inputdiv">
         <textarea class="inputfiled" placeholder="在此处输入消息(Ctrl+Enter发送)" @keydown='sendMsg'></textarea>
      </div>
@@ -36,7 +40,6 @@ export default {
   data() {
     return {
       inputMsg: ""
-      
     };
   },
   methods: {
@@ -70,7 +73,7 @@ export default {
           Msg: _msg,
           time: _time
         };
-     
+
         if (sendobj.Msg) {
           eventBus.$emit("sendmsg", sendobj); //注册全局监听，将值传递到Message
           oEvent.currentTarget.value = "";
@@ -88,17 +91,18 @@ export default {
 }
 .inputbar {
   text-indent: 10px;
-  height: 26px;
-  line-height: 26px;
+  height: 24px;
+  line-height: 24px;
   background-color: #f5f5f5;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   vertical-align: middle;
 }
-.inputbar img{
-  margin-top: 4px;
-  width: 20px;
-  height: 20px;
+.inputbar img {
+  margin-top: 3px;
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
 }
 
 .inputfiled {
@@ -106,7 +110,7 @@ export default {
   text-indent: 10px;
   outline: none;
   resize: none;
-  height: 163px;
+  height: 150px;
   width: 99.6%;
   border: 0px solid #ddd;
   overflow-y: scroll;
@@ -116,7 +120,6 @@ export default {
   outline-style: none;
   border-bottom: 1px solid #ddd;
 }
-
 
 .inputfiled::-webkit-scrollbar {
   /*滚动条整体样式*/

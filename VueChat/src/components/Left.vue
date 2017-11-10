@@ -167,7 +167,7 @@ export default {
 
 .tabpanle {
   width: 200px;
-  height: 734px;
+  height: 720px;
   overflow-x: hidden;
   overflow-y: auto;
   float: left;

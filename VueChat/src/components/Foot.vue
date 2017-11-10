@@ -1,7 +1,7 @@
 <template>
     <div class="foot">
         <div>
-            @Copy Right 2017
+            @Copy Right 2017 VueChat Col.
         </div>
     </div>
 </template>
@@ -20,8 +20,7 @@ export default {
 .foot {
     position: fixed;
     bottom: 0;  
-    margin-left: 25%;
-    width: 50%;
+    width: 100%;
     text-align: center;
 }
 </style>

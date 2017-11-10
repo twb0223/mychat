@@ -5,6 +5,7 @@
         <vLeft/>
         <vCenter/>
     </div>
+    <vFoot/>
 </div>
 </template>
 
@@ -12,6 +13,7 @@
 import vHead from "./Head";
 import vLeft from "./Left";
 import vCenter from "./Center";
+import vFoot from "./Foot";
 export default {
   data() {
     return {};
@@ -19,7 +21,8 @@ export default {
   components: {
     vHead,
     vLeft,
-    vCenter
+    vCenter,
+    vFoot
   }
 };
 </script>
