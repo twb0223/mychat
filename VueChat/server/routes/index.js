@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var request = require('request');
 var user = require('../services/userService');
 
 var initdata = {
