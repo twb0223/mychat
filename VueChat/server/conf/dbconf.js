@@ -1,9 +1,9 @@
 module.exports={
     mysql:{
-        host:'localhost',
-        user:'root',
-        password:'root',
-        database:'test',
+        host:'bdm275410299.my3w.com',
+        user:'bdm275410299',
+        password:'tanwenbin',
+        database:'bdm275410299_db',
         port:3306
     }
 };

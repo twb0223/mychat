@@ -35,7 +35,10 @@ export default {
   },
   methods: {
     login() {
-      this.$router.push({ name: "Main" });
+      const _this = this;
+      this.$axios.get(process.env.API_HOST + "/user").then(function(response) {
+        _this.$router.push({ name: "Main" });
+      });
     },
     cancel() {
       this.userName = "";

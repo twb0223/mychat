@@ -69,12 +69,12 @@ var initdata = {
     ]
 };
 
-router.get('/', (req, res, next) => {
+router.get('/api', (req, res, next) => {
     user.getToken(req, res, next);
 });
 
-router.get('/user', (req, res, next) => {
-   res.json(initdata);
+router.get('/api/user', (req, res, next) => {
+   user.queryAll(req, res, next);
 });
 
 
