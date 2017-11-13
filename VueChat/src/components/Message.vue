@@ -9,7 +9,7 @@
               <pre><code>{{item.Msg}}</code></pre>
             </div>
             <br/>
-                   <br/>
+            <br/>
         </div>
     </div>
 </template>
