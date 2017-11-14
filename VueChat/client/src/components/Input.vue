@@ -53,15 +53,6 @@ export default {
       document.body.removeChild(div); //将div从页面上删除
       return result;
     },
-    htmlDecode: function(str) {
-      var div = document.createElement("div");
-      div.innerHTML = str;
-      var result = div.innerText;
-      //createElement 的节点必须添加到body 否则会引起内存泄漏
-      document.body.appendChild(div); //将div追加到页面上
-      document.body.removeChild(div); //将div从页面上删除
-      return result;
-    },
     sendMsg: function(oEvent) {
       if (oEvent.keyCode === 13 && oEvent.ctrlKey) {
         let _this = this,

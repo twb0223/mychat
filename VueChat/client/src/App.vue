@@ -5,13 +5,11 @@
 </template>
 <script>
 export default {
-  name: 'app',
+  name: "app",
   data() {
-    return {
-
-    }
+    return {};
   }
-}
+};
 </script>
 <style scop>
 html,
@@ -103,8 +101,6 @@ video {
   vertical-align: baseline;
 }
 
-
-
 /* HTML5 display-role reset for older browsers */
 
 article,
@@ -139,7 +135,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
+  content: "";
   content: none;
 }
 
@@ -163,9 +159,5 @@ table {
 
 .display_none {
   display: none;
-}
-
-body {
-  font-family: 'Consolas';
 }
 </style>

@@ -22,15 +22,27 @@ export default {
       sendMsgs: []
     };
   },
+  methods: {
+    htmlDecode: function(str) {
+      var div = document.createElement("div");
+      div.innerHTML = str;
+      var result = div.innerText;
+      //createElement 的节点必须添加到body 否则会引起内存泄漏
+      document.body.appendChild(div); //将div追加到页面上
+      document.body.removeChild(div); //将div从页面上删除
+      return result;
+    }
+  },
   updated: function() {
     MsgContain.scrollTop = MsgContain.scrollHeight;
   },
   mounted: function() {
-    const _this = this;
+    var _this = this;
     eventBus.$on("selectid", function(val) {
       _this.selectid = val;
     });
     eventBus.$on("sendmsg", function(val) {
+      val.Msg=_this.htmlDecode(val.Msg);//特殊标签重新转义回来
       _this.sendMsgs.push(val);
     });
   }
@@ -43,6 +55,7 @@ export default {
   height: 540px;
   overflow-y: scroll;
   overflow-y: auto;
+
 }
 .Message::-webkit-scrollbar {
   /*滚动条整体样式*/
@@ -87,7 +100,7 @@ export default {
   height: auto;
   margin-left: 55px;
   line-height: 30px;
-  font-size: 16px;
+  font-size: 14px;
   width: 80%;
   background-color: #f5f5f5;
   border-radius: 5px;
