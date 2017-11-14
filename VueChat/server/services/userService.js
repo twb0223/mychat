@@ -13,17 +13,17 @@ module.exports = {
 
         $tool.jsonwrite(res, { 'token': token, 'time': time });
     },
-    add: function (req, res, next) {
-        pool.getConnection(function (err, connetion) {
+    add(req, res, next) {
+        pool.getConnection((err, connetion) => {
             var param = req.query || req.params;
-            connetion.query($sql.insert, [param.user_name, param.password, param.email], function () {
+            connetion.query($sql.insert, [param.user_name, param.password, param.email], () => {
                 if (result) {
                     result = { code: 200, msg: '添加成功' }
                 }
                 $tool.jsonwrite(res, result);
                 connetion.release();
-            });
-        });
+            })
+        })
     },
     update: function (req, res, next) {
         var param = req.body;
@@ -49,7 +49,7 @@ module.exports = {
     },
     delete: function (req, res, next) {
         pool.getConnection(function (err, connection) {
-            connection.query($.delete, id, function (err, result) {
+            connection.query($sql.delete, id, function (err, result) {
                 if (result.affectedRows > 0) {
                     result = {
                         code: 200,
@@ -59,9 +59,25 @@ module.exports = {
                     result = void 0;
                 }
                 $tool.jsonwrite(res, result);
-                connetion.release();
+               
             });
         });
+    },
+    deleteGirlById(req, res, next) {
+        var id = +req.params.id;
+        pool.getConnection((err, connection) => {
+            connection.query($sql.deleteGirlById, id, (err, result) => {
+                if (result.affectedRows > 0) {
+                    result = {
+                        code: 200,
+                        msg: '删除成功'
+                    };
+                } else {
+                    result = void 0;
+                }
+                $tool.jsonwrite(res, result);
+            })
+        })
     },
     queryById: function (req, res, next) {
         var id = +req.query.id; // 为了拼凑正确的sql语句，这里要转下整数
@@ -76,8 +92,18 @@ module.exports = {
         pool.getConnection(function (err, connection) {
             connection.query($sql.queryAll, function (err, result) {
                 $tool.jsonwrite(res, result);
-                connection.release();
+              
             });
+            connection.release();
+        });
+    },
+    queryAllGril(req, res, next) {
+        pool.getConnection(function (err, connection) {
+            connection.query($sql.queryAllGrils, function (err, result) {
+                $tool.jsonwrite(res, result);
+              
+            });
+            connection.release();
         });
     }
 }

@@ -8,15 +8,15 @@
 
 <script>
 export default {
-    data(){
-        return {};
+  data() {
+    return {};
+  },
+  method: {
+    showall() {
+      //todo 构造👿显示列表
     },
-    method:{
-        showall(){
-            //todo 构造👿显示列表
-        },
-        select(){}
-    },
+    select() {}
+  }
 };
 </script>
 

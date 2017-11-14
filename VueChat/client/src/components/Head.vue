@@ -5,11 +5,10 @@
         </div>
         <div id="menu">
             <ul>
-                <li>
-                    <a href="/">Logout</a>
-                </li>
+                <router-link to="/" tag="li">Logout</router-link>
             </ul>
         </div>
+        <router-view class=""></router-view>
     </div>
 </template>
 
@@ -50,7 +49,7 @@ export default {
   width: 300px;
   float: right;
 }
-#menu ul{
+#menu ul {
   vertical-align: middle;
   margin-top: 15px;
   margin-right: 50px;

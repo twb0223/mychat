@@ -74,7 +74,14 @@ router.get('/api', (req, res, next) => {
 });
 
 router.get('/api/user', (req, res, next) => {
-   user.queryAll(req, res, next);
+    user.queryAll(req, res, next);
+});
+
+router.get('/api/girl', (req, res, next) => {
+    user.queryAllGril(req, res, next);
+});
+router.get('/api/girl/delete/:id', (req, res, next) => {
+    user.deleteGirlById(req, res, next);
 });
 
 
