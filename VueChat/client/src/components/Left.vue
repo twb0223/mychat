@@ -167,14 +167,13 @@ export default {
 
 .tabpanle {
   width: 200px;
-  height: 720px;
+  height: 740px;
   overflow-x: hidden;
   overflow-y: auto;
   float: left;
   background-color: #f5f5f5;
-  border-right: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-  background-repeat: repeat-y;
+  border-right: 1px solid #f5f5f5;
+  border-bottom: 1px solid #f5f5f5;
   /* box-shadow: 0 0 10px rgba(0, 204, 204, 0.5); */
 }
 .linkgroup {
@@ -211,7 +210,7 @@ export default {
   cursor: pointer;
   line-height: 20px;
 }
-.groupName img{
+.groupName img {
   vertical-align: bottom;
   margin-right: 8px;
   width: 20px;

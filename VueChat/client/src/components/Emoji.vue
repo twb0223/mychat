@@ -14,7 +14,6 @@ export default {
     method:{
         showall(){
             //todo 构造👿显示列表
-            
         },
         select(){}
     },

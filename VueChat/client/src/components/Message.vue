@@ -52,7 +52,7 @@ export default {
 <style>
 .Message {
   width: 99.9%;
-  height: 540px;
+  height: 552px;
   overflow-y: scroll;
   overflow-y: auto;
 

@@ -5,7 +5,6 @@
         <vLeft/>
         <vCenter/>
     </div>
-    <vFoot/>
 </div>
 </template>
 
@@ -21,20 +20,18 @@ export default {
   components: {
     vHead,
     vLeft,
-    vCenter,
-    vFoot
+    vCenter
   }
 };
 </script>
 
 <style scoped>
 .main {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
+  overflow: hidden;
 }
 .content {
   padding-top: 50px;
+  height: 730px;
   overflow: hidden;
 }
 </style>

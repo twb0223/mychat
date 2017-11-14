@@ -64,7 +64,6 @@ export default {
           Msg: _msg,
           time: _time
         };
-
         if (sendobj.Msg) {
           eventBus.$emit("sendmsg", sendobj); //注册全局监听，将值传递到Message
           oEvent.currentTarget.value = "";
@@ -82,11 +81,11 @@ export default {
 }
 .inputbar {
   text-indent: 10px;
-  height: 24px;
-  line-height: 24px;
+  height: 23px;
+  line-height: 23px;
   background-color: #f5f5f5;
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #f5f5f5;
+  border-bottom: 1px solid #f5f5f5;
   vertical-align: middle;
 }
 .inputbar img {
@@ -103,13 +102,13 @@ export default {
   resize: none;
   height: 150px;
   width: 99.6%;
-  border: 0px solid #ddd;
+  border: 0px solid #f5f5f5;
   overflow-y: scroll;
   overflow-y: auto;
   word-break: break-word;
   word-wrap: break-word;
   outline-style: none;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #f5f5f5;
 }
 
 .inputfiled::-webkit-scrollbar {

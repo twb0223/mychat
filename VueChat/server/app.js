@@ -11,6 +11,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 // 后端api路由
 app.use('/', index);
 
+//跨域设置
 app.use(cors({
     origin:['http://localhost:8080'],
     methods:['GET','POST'],
