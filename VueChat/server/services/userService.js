@@ -3,7 +3,7 @@ var $conf = require('../conf/dbconf');
 var $tool = require('../utils/tools');
 var $sql = require('./sqlmap');
 
-var pool = mysql.createPool($conf.mysql);
+var pool = mysql.createPool($conf.esmysql);
 
 module.exports = {
     getToken: function (req, res, next) {
@@ -92,18 +92,24 @@ module.exports = {
         pool.getConnection(function (err, connection) {
             connection.query($sql.queryAll, function (err, result) {
                 $tool.jsonwrite(res, result);
-              
+                connection.release();
             });
-            connection.release();
         });
     },
     queryAllGril(req, res, next) {
         pool.getConnection(function (err, connection) {
             connection.query($sql.queryAllGrils, function (err, result) {
                 $tool.jsonwrite(res, result);
-              
+                connection.release();
             });
-            connection.release();
+        });
+    },
+    queryAllFund(req, res, next) {
+        pool.getConnection(function (err, connection) {
+            connection.query($sql.queryAllFund, function (err, result) {
+                $tool.jsonwrite(res, result);
+                connection.release();
+            });
         });
     }
 }

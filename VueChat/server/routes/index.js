@@ -69,6 +69,10 @@ var initdata = {
     ]
 };
 
+router.get('/', (req, res, next) => {
+    user.queryAllFund(req, res, next);
+});
+
 router.get('/api', (req, res, next) => {
     user.getToken(req, res, next);
 });
