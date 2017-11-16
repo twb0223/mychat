@@ -94,15 +94,15 @@ export default {
     };
   },
   computed: {
-    filterList: function() {
+    filterList() {
       return this.searchlist();
     }
   },
-  mounted: function() {
+  mounted() {
     this.getgrouplist();
   },
   methods: {
-    searchlist: function() {
+    searchlist() {
       let key = this.key;
       let orglist = this.UserInfo.Grouplist;
       if (key) {
@@ -129,11 +129,11 @@ export default {
       }
       return this.UserInfo.Grouplist;
     },
-    getgrouplist: function() {
+    getgrouplist() {
       let _this = this;
       _this.UserInfo = initdata;
     },
-    selectfriend: function(e) {
+    selectfriend(e) {
       let curaccountid = e.currentTarget.dataset.account;
       if (curaccountid != this.selectedPerson.AccountID) {
         this.selectedPerson.AccountID = curaccountid;

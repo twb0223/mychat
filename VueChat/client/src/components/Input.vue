@@ -43,8 +43,8 @@ export default {
     };
   },
   methods: {
-    renderMsg: function() {},
-    htmlEncode: function(str) {
+    renderMsg() {},
+    htmlEncode(str) {
       var div = document.createElement("div");
       div.appendChild(document.createTextNode(str));
       var result = div.innerHTML;
@@ -53,7 +53,7 @@ export default {
       document.body.removeChild(div); //将div从页面上删除
       return result;
     },
-    sendMsg: function(oEvent) {
+    sendMsg(oEvent) {
       if (oEvent.keyCode === 13 && oEvent.ctrlKey) {
         let _this = this,
           _msg = _this.htmlEncode(oEvent.currentTarget.value),

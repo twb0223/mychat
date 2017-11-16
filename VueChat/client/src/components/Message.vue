@@ -23,7 +23,7 @@ export default {
     };
   },
   methods: {
-    htmlDecode: function(str) {
+    htmlDecode(str) {
       var div = document.createElement("div");
       div.innerHTML = str;
       var result = div.innerText;
@@ -33,10 +33,10 @@ export default {
       return result;
     }
   },
-  updated: function() {
+  updated() {
     MsgContain.scrollTop = MsgContain.scrollHeight;
   },
-  mounted: function() {
+  mounted() {
     var _this = this;
     eventBus.$on("selectid", function(val) {
       _this.selectid = val;
