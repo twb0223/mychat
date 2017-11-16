@@ -5,7 +5,6 @@
                     <img :src="loginLogo" alt="">
                 </div>
             <div class="centerinput">
-
                 <div>
                     <input type="text" name="account" v-model="userName" placeholder="输入账号">
                     <input type="password" name="password" v-model="pwd" placeholder="输入密码">
