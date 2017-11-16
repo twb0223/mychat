@@ -19,7 +19,8 @@
     "socket.io": "^1.7.4",
     "vue": "^2.5.3",
     "vue-axios": "^2.0.2",
-    "vue-router": "^2.8.1"
+    "vue-router": "^2.8.1",
+    "vuex": "^2.5.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.6",
