@@ -21,13 +21,8 @@ export default {
 
 <style>
 .center {
-  /* padding-top: 50px; */
-  /* display: inline; */
   overflow-x: hidden;
   overflow-y: auto;
   height: 740px;
-
-  /* background-color: #dfdfdf; */
-  /* color: #fafcfd; */
 }
 </style>

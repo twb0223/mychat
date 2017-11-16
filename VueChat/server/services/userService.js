@@ -3,7 +3,7 @@ var $conf = require('../conf/dbconf');
 var $tool = require('../utils/tools');
 var $sql = require('./sqlmap');
 
-var pool = mysql.createPool($conf.esmysql);
+var pool = mysql.createPool($conf.aliyunmysql);
 
 module.exports = {
     getToken: function (req, res, next) {

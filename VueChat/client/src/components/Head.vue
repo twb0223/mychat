@@ -43,7 +43,6 @@ export default {
   height: 40px;
   border-radius: 100px;
 }
-
 #menu {
   height: 50px;
   width: 300px;

@@ -6,6 +6,7 @@
     npm install
     npm run dev
 ```
+<hr>
 ### server 后台服务器
 
  进入server文件夹 运行
@@ -14,6 +15,3 @@
     npm start
     
 ```
-
-
-
