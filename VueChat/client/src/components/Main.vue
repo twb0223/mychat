@@ -1,6 +1,6 @@
 <template>
 <div class="main">
-    <vHead/>    
+    <vHead/>   
     <div class="content">
         <vLeft/>
         <vCenter/>
