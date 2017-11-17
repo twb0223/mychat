@@ -1,5 +1,5 @@
 <template>
-    <div class="header">
+     <div class="header">
         <div class="logo">
             <img src="../assets/img/face.jpg" alt="">
         </div>
@@ -8,8 +8,8 @@
                 <router-link to="/" tag="li">Logout</router-link>
             </ul>
         </div>
-        <router-view class=""></router-view>
     </div>
+  
 </template>
 
 <script>

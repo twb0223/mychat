@@ -1,24 +1,22 @@
 <template>
-    <div class="login_main">
-        <div class="login_form">
-                <div class="loginlogo">
-                    <img :src="loginLogo" alt="">
-                </div>
-            <div class="centerinput">
-                <div>
-                    <input type="text" name="account" v-model="userName" placeholder="输入账号">
-                    <input type="password" name="password" v-model="pwd" placeholder="输入密码">
-                </div>
-            </div>
-            <div class="thirdlogin">
-
-            </div>
-            <div class="login_btn">
-                <button @click='login'>Login</button>
-                <button @click='cancel'>Cancel</button>
-            </div>
-        </div>
+  <div class="login_main">
+    <div class="login_form">
+      <div class="loginlogo">
+        <img :src="loginLogo" alt="">
+      </div>
+      <el-form ref="form" :model="form">
+        <el-form-item >
+          <el-input v-model="userName" placeholder="输入账号"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-input v-model="pwd" placeholder="输入密码"></el-input>
+        </el-form-item>
+     <el-form-item>
+         <el-button @click='login' type="primary">Sign In</el-button>
+        </el-form-item>
+      </el-form>
     </div>
+  </div>
 </template>
 <script>
 export default {
@@ -26,7 +24,8 @@ export default {
     return {
       userName: "",
       pwd: "",
-      loginLogo: ""
+      loginLogo: "",
+      form: {}
     };
   },
   mounted: function() {
@@ -36,12 +35,10 @@ export default {
     login() {
       const _this = this;
       this.$axios.get(process.env.API_HOST + "/user").then(function(response) {
-        _this.$router.push({ name: "Main" });
+        _this.$router.push({
+          name: "Main"
+        });
       });
-    },
-    cancel() {
-      this.userName = "";
-      this.pwd = "";
     }
   }
 };
@@ -66,63 +63,25 @@ export default {
   box-shadow: 0px 0px 10px rgba(0, 204, 204, 0.5);
   border-radius: 10px;
 }
+.el-form {
+  margin-top: 20px;
+  text-align: center;
+}
+.el-input {
+  width: 300px;
+}
+.el-button {
+  width: 300px;
+}
 .loginlogo {
   padding-top: 30px;
   margin-left: 200px;
   width: 50px;
 }
+
 .loginlogo img {
   width: 50px;
   height: 50px;
   border-radius: 50px;
-}
-.centerinput {
-  width: 300px;
-  height: 150px;
-  padding-top: 30px;
-  padding-left: 75px;
-  vertical-align: middle;
-}
-
-.centerinput input {
-  height: 30px;
-  line-height: 30px;
-  width: 100%;
-  font-size: 16px;
-  border: 0px solid #ddd;
-  margin-bottom: 20px;
-  outline: none;
-  border-bottom: 1px solid #ddd;
-  background-color: #fff;
-}
-
-.login_btn {
-  text-align: center;
-  height: 35px;
-  line-height: 35px;
-}
-
-.login_btn button {
-  border-radius: 5px;
-  width: 70px;
-  height: 30px;
-  margin-left: 15px;
-  background-color: #ddd;
-  border: 0px solid #eee;
-  outline: none;
-  cursor: pointer;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
-  /*box-shadow: 0px 0px 10px rgba(0, 204, 204, .5);*/
-}
-
-.login_btn button:hover {
-  box-shadow: 0 0 10px rgba(0, 204, 204, 0.5);
-  background: linear-gradient(to bottom, #0e7bef, #0d73da);
-  color: #fff;
-}
-
-.thirdlogin {
-  text-align: center;
-  margin-top: -40px;
 }
 </style>
