@@ -77,7 +77,6 @@ export default {
 <style>
 .Msginput {
   width: auto;
-  /* background-color: #dfdfdf; */
 }
 .inputbar {
   text-indent: 10px;
