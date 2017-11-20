@@ -4,12 +4,12 @@
   <el-menu-item index="1">处理中心</el-menu-item>
 </el-menu>
   </el-header>
-</template>
 
 <script>
 export default {};
 </script>
 
 <style>
+</template>
 
 </style>
