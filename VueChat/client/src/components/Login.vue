@@ -51,7 +51,7 @@ export default {
   left: 50%;
   right: 50%;
   width: 0;
-  height: 0;
+  height: 0; 
 }
 
 .login_form {

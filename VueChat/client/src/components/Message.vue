@@ -39,7 +39,7 @@ export default {
   mounted() {
     var _this = this;
     eventBus.$on("selectid", function(val) {
-      _this.selectid = val;
+      _this.selectid = val; 
     });
     eventBus.$on("sendmsg", function(val) {
       val.Msg=_this.htmlDecode(val.Msg);//特殊标签重新转义回来
