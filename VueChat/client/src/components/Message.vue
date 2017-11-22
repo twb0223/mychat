@@ -39,10 +39,10 @@ export default {
   mounted() {
     var _this = this;
     eventBus.$on("selectid", function(val) {
-      _this.selectid = val; 
+      _this.selectid = val;
     });
     eventBus.$on("sendmsg", function(val) {
-      val.Msg=_this.htmlDecode(val.Msg);//特殊标签重新转义回来
+      val.Msg = _this.htmlDecode(val.Msg); //特殊标签重新转义回来
       _this.sendMsgs.push(val);
     });
   }
@@ -55,7 +55,6 @@ export default {
   height: 552px;
   overflow-y: scroll;
   overflow-y: auto;
-
 }
 .Message::-webkit-scrollbar {
   /*滚动条整体样式*/

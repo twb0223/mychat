@@ -12,8 +12,7 @@ export default {
     return {};
   },
   method: {
-    showall() {
-    },
+    showall() {},
     select() {}
   }
 };

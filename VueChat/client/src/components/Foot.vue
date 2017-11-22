@@ -8,18 +8,17 @@
 
 <script>
 export default {
-    data() {
-        return {
-        }
-    }
-}
+  data() {
+    return {};
+  }
+};
 </script>
 
 <style scoped>
 .foot {
-    position: fixed;
-    bottom: 0;  
-    width: 100%;
-    text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
 }
 </style>
