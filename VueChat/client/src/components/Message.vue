@@ -49,7 +49,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .Message {
   width: 99.9%;
   height: 552px;
