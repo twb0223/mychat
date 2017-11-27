@@ -1,28 +1,28 @@
 <template>
-  <div class="center">
-      <vMessage/>
-      <vInput/>
+  <div class="card">
+     <div class="cardimg">
+       <img src="" alt="">
+     </div>
+      <div class="cardinfo">
+        <span>Name</span>
+        <span>Tel</span>
+      </div>
   </div>
 </template>
 
 <script>
-import vMessage from "./Message";
-import vInput from "./Input";
 export default {
   data() {
     return {};
-  }, 
-  components: {
-    vMessage,
-    vInput
   }
 };
 </script>
 
 <style>
-.center {
-  overflow-x: hidden;
-  overflow-y: auto;
-  height: 740px;
+.card{
+  width: 200px;
+  height: 200px;
+  z-index: 1000;
+  
 }
 </style>
