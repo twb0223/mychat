@@ -33,16 +33,6 @@ var initdata = {
             'AccountID': '1302102',
             'AccountName': 'AName4',
             'AccountLogo': 'imgs/Smile.png'
-        },
-        {
-            'AccountID': '140022',
-            'AccountName': 'AName5',
-            'AccountLogo': 'imgs/Smile.png'
-        },
-        {
-            'AccountID': '1240202',
-            'AccountName': 'AName2',
-            'AccountLogo': 'imgs/Smile.png'
         }
         ]
     },
