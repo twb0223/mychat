@@ -11,7 +11,7 @@ import vInput from "./Input";
 export default {
   data() {
     return {};
-  }, 
+  },
   components: {
     vMessage,
     vInput

@@ -8,6 +8,7 @@
                 <router-link to="/" tag="li">Logout</router-link>
             </ul>
         </div>
+        <router-view/>
     </div>
 </template>
 
