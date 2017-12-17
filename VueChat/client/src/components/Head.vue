@@ -5,7 +5,8 @@
         </div>
         <div id="menu">
             <ul>
-                <router-link to="/" tag="li">Logout</router-link>
+                <router-link to="/Emoji" tag="li">Emoji</router-link>|
+                 <router-link to="/Card" tag="li">Card</router-link>
             </ul>
         </div>
         <router-view/>

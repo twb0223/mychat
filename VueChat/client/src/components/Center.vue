@@ -2,7 +2,9 @@
   <div class="center">
       <vMessage/>
       <vInput/>
+       <router-view/>
   </div>
+  
 </template>
 
 <script>
