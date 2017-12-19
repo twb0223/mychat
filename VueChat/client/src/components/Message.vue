@@ -86,7 +86,6 @@ export default {
   border-radius: 30px;
   box-shadow: 0 0 10px #cee2ee;
 }
-
 .msgname {
   margin-top: -45px;
   margin-left: 55px;
