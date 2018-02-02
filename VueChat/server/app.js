@@ -7,7 +7,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-
+app.use(express.static(path.join(__dirname, 'dist')))
 // 后端api路由
 app.use('/', index);
 
