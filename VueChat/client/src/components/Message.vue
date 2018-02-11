@@ -35,6 +35,7 @@ export default {
   },
   updated() {
     MsgContain.scrollTop = MsgContain.scrollHeight;
+    
   },
   mounted() {
     var _this = this;

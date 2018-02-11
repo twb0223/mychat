@@ -1,9 +1,16 @@
+
+const state={
+
+}
+
 const getter={
 
 }
+
 const action={
 
 }
+
 const mutations={
 
 }
