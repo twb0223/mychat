@@ -60,7 +60,8 @@ var initdata = {
 };
 
 router.get('/', (req, res, next) => {
-    user.queryAllFund(req, res, next);
+    //user.queryAllFund(req, res, next);
+    res.redirect('/index.html')
 });
 
 router.get('/api', (req, res, next) => {
