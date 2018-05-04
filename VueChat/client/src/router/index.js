@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/components/Login'
-import Main from '@/components/Main'
+import Login from '@/pages/Login'
+import Main from '@/pages/Main'
 import Card from '@/components/Card'
 import Emoji from '@/components/Emoji'
 
@@ -18,12 +18,7 @@ export default new Router({
     {
       path: '/Main',
       name: 'Main',
-      component: Main,
-      children: [{
-        path: '/Card',
-        name: 'card',
-        component: Card
-      }, { path: '/Emoji', name: 'emoji', component: Emoji }]
-    },
+      component: Main
+    }
   ]
 })

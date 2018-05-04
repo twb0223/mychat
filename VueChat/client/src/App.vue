@@ -1,167 +1,64 @@
 <template>
   <div id="app">
-    <transition >
-      <keep-alive>
-        <router-view></router-view>
-      </keep-alive>
-    </transition>
+    <router-view class="view"></router-view>
+    <router-view class="view" name="subject"></router-view>
+    <router-view class="view" name="search"></router-view>
   </div>
 </template>
+
 <script>
 export default {
-  name: "app",
-  data() {
-    return {};
-  }
+  name: "app"
 };
 </script>
-<style scop>
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
+
+<style>
+html {
+  font-size: 62.5%;
+}
+
+#app {
+  max-width: 41.2rem;
+  margin: 0 auto;
+}
+
+.has-header {
+  margin-top: 4.8rem;
+}
+
+h2 {
+  font-size: 1.68rem;
+  font-weight: normal;
+  color: #111;
+}
+
 ul,
 li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
+a,
+h2 {
   margin: 0;
   padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
 }
 
-/* HTML5 display-role reset for older browsers */
-
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  display: block;
-}
-
-body {
-  line-height: 1;
-}
-
-ol,
-ul {
+li {
   list-style: none;
 }
 
-blockquote,
-q {
-  quotes: none;
+a {
+  text-decoration: none;
 }
 
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: "";
-  content: none;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-.fr {
-  float: right;
-}
-
-.fl {
-  float: left;
-}
-
-.p_center {
-  vertical-align: middle;
-  text-align: center;
-}
-
-.display_none {
-  display: none;
+.header-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 998;
+  display: flex;
+  align-items: center;
+  height: 4.8rem;
+  padding: 0 1.8rem;
+  background: #fff;
+  border-bottom: 0.1rem solid #f3f3f3;
 }
 </style>

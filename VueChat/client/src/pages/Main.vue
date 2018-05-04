@@ -9,10 +9,10 @@
 </template>
 
 <script>
-import vHead from "./Head";
-import vLeft from "./Left";
-import vCenter from "./Center";
-import vFoot from "./Foot";
+import vHead from "@/components/Head";
+import vLeft from "@/components/Left";
+import vCenter from "@/components/Center";
+import vFoot from "@/components/Foot";
 export default {
   data() {
     return {};
